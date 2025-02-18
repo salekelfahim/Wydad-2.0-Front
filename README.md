@@ -86,10 +86,6 @@ Fans can enjoy:
 - Database (MySQL/PostgreSQL)
 - Angular 17
 
-## 📝 License
-
-*License information to be specified*
-
 ## 🤝 Contributing
 
 Guidelines for contribution will be added soon.
