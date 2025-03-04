@@ -1,114 +1,93 @@
-<app-navbar></app-navbar>
 <main id="register" class="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
   <div
-    class="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8 animate-[fadeIn_0.5s_ease-in-out] transform hover:shadow-xl transition-all">
-    <div class="flex flex-col items-center mb-8"> <img
-      src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png" alt="Wydad AC Logo"
-      class="h-20 mb-4" />
+    class="max-w-md w-full bg-white rounded-lg shadow-lg p-8 animate-[fadeIn_0.5s_ease-in-out] transform hover:shadow-xl transition-all">
+    <div class="flex flex-col items-center mb-8">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+           alt="Wydad AC Logo" class="h-20 mb-4" />
       <h2 class="text-2xl sm:text-3xl font-bold text-center">Join the Wydad Family</h2>
-      <p class="text-gray-600 text-center mt-2">Create your account to purchase merchandise and match tickets
-      </p>
-    </div>
-    <form class="space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">person</span>
-          <input type="text" placeholder="Full Name *" required=""
-                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">email</span>
-          <input type="email" placeholder="Email Address *" required=""
-                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-gray-600 transition-colors duration-200">lock</span>
-          <input type="password" placeholder="Password *" required=""
-                 class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-          <span
-            class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">visibility</span>
-          <div class="mt-1 flex gap-1">
-            <div class="h-1 w-1/4 bg-gray-200 rounded-full overflow-hidden">
-              <div class="h-full w-1/4 bg-red-500 transition-all duration-300"></div>
-            </div>
-            <div class="h-1 w-1/4 bg-gray-200 rounded-full overflow-hidden">
-              <div class="h-full w-0 bg-yellow-500 transition-all duration-300"></div>
-            </div>
-            <div class="h-1 w-1/4 bg-gray-200 rounded-full overflow-hidden">
-              <div class="h-full w-0 bg-blue-500 transition-all duration-300"></div>
-            </div>
-            <div class="h-1 w-1/4 bg-gray-200 rounded-full overflow-hidden">
-              <div class="h-full w-0 bg-green-500 transition-all duration-300"></div>
-            </div>
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Use 8+ characters with letters, numbers &amp; symbols</p>
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">lock</span>
-          <input type="password" placeholder="Confirm Password *" required=""
-                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">phone</span>
-          <input type="tel" placeholder="Phone Number (Optional)"
-                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">calendar_today</span>
-          <input type="date" placeholder="Date of Birth (Optional)"
-                 class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        </div>
-        <div class="relative"> <span
-          class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">public</span>
-          <select required=""
-                  class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all appearance-none bg-white">
-            <option value="" disabled="" selected="">Country/Region *</option>
-            <option value="morocco">Morocco</option>
-            <option value="algeria">Algeria</option>
-            <option value="tunisia">Tunisia</option>
-            <option value="egypt">Egypt</option>
-            <option value="other">Other</option>
-          </select> <span
-            class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">expand_more</span>
-        </div>
+      <p class="text-gray-600 text-center mt-2">Create your account to purchase merchandise and match tickets</p>
+
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="mt-4 w-full p-3 bg-red-100 text-red-700 rounded-lg">
+        {{ errorMessage }}
       </div>
-      <div class="space-y-4">
-        <div class="flex items-start">
-          <div class="flex items-center h-5"> <input id="terms" type="checkbox" required=""
-                                                     class="h-4 w-4 text-[#c1121f] focus:ring-[#c1121f] border-gray-300 rounded" /> </div>
-          <div class="ml-3 text-sm"> <label for="terms">I agree to the <a href="#"
-                                                                          class="text-[#c1121f] hover:text-[#780000] transition-colors font-medium">Terms &amp;
-            Conditions</a> *</label> </div>
-        </div>
-        <div class="flex items-start">
-          <div class="flex items-center h-5"> <input id="newsletter" type="checkbox"
-                                                     class="h-4 w-4 text-[#c1121f] focus:ring-[#c1121f] border-gray-300 rounded" checked="" /> </div>
-          <div class="ml-3 text-sm"> <label for="newsletter">Subscribe to our newsletter for updates and
-            exclusive offers</label> </div>
-        </div>
-      </div> <button type="submit" style="background-color: #c1121f"
-                     class="w-full bg-[#c1121f] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#780000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c1121f] transform hover:scale-[1.02] transition-all">
-      Create Account </button>
-    </form>
-    <div class="mt-8">
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- First Name -->
       <div class="relative">
-        <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-gray-300"></div>
-        </div>
-        <div class="relative flex justify-center text-sm"> <span class="px-2 bg-white text-gray-500">OR</span>
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">person</span>
+        <input type="text" formControlName="firstName" placeholder="First Name *"
+               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['firstName'].invalid && f['firstName'].touched}" />
+        <div *ngIf="f['firstName'].invalid && f['firstName'].touched" class="text-red-500 text-sm mt-1">
+          First name is required
         </div>
       </div>
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3"> <button
-        class="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
-        <i class="fa-brands fa-google text-xl mr-2 text-[#DB4437]"></i> Sign up with Google </button> <button
-        class="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
-        <i class="fa-brands fa-facebook text-xl mr-2 text-[#4267B2]"></i> Sign up with Facebook </button>
+
+      <!-- Last Name -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">person</span>
+        <input type="text" formControlName="lastName" placeholder="Last Name *"
+               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['lastName'].invalid && f['lastName'].touched}" />
+        <div *ngIf="f['lastName'].invalid && f['lastName'].touched" class="text-red-500 text-sm mt-1">
+          Last name is required
+        </div>
       </div>
-    </div>
+
+      <!-- Email -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">email</span>
+        <input type="email" formControlName="email" placeholder="Email Address *"
+               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['email'].invalid && f['email'].touched}" />
+        <div *ngIf="f['email'].invalid && f['email'].touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">lock</span>
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password *"
+               class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['password'].invalid && f['password'].touched}" />
+        <span (click)="togglePasswordVisibility()"
+              class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </span>
+        <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters</span>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">lock</span>
+        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password *"
+               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': (registerForm.errors?.['mismatch'] || f['confirmPassword'].invalid) && f['confirmPassword'].touched}" />
+        <div *ngIf="(registerForm.errors?.['mismatch'] || f['confirmPassword'].invalid) && f['confirmPassword'].touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password</span>
+          <span *ngIf="registerForm.errors?.['mismatch']">Passwords do not match</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="registerForm.invalid || isSubmitting"
+              class="w-full bg-[#c1121f] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#780000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c1121f] transform hover:scale-[1.02] transition-all"
+              [ngClass]="{'opacity-70 cursor-not-allowed': registerForm.invalid || isSubmitting}">
+        {{ isSubmitting ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+
     <div class="mt-6 text-center">
-      <p class="text-sm"> Already have an account? <a href="#"
-                                                      class="font-medium text-[#c1121f] hover:text-[#780000] ml-1 transition-colors">Login here</a> </p>
+      <p class="text-sm"> Already have an account?
+        <a routerLink="/login" class="font-medium text-[#c1121f] hover:text-[#780000] ml-1 transition-colors">Login here</a>
+      </p>
     </div>
   </div>
 </main>
-<app-footer></app-footer>

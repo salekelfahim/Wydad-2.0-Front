@@ -1,52 +1,90 @@
-<app-navbar></app-navbar>
 <main id="login" class="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
   <div
     class="max-w-md w-full bg-white rounded-lg shadow-lg p-8 animate-[fadeIn_0.5s_ease-in-out] transform hover:shadow-xl transition-all">
-    <div class="flex flex-col items-center"> <img
-      src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png" alt="Wydad AC Logo"
-      class="h-20 mb-6" />
+    <div class="flex flex-col items-center">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+           alt="Wydad AC Logo" class="h-20 mb-6" />
       <h2 class="text-2xl font-bold mb-6">Welcome Back, Supporter!</h2>
+
+      <!-- Success message after registration -->
+      <div *ngIf="registrationSuccess" class="mb-4 w-full p-3 bg-green-100 text-green-700 rounded-lg">
+        Registration successful! You can now login with your credentials.
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="mb-4 w-full p-3 bg-red-100 text-red-700 rounded-lg">
+        {{ errorMessage }}
+      </div>
     </div>
-    <form class="space-y-6">
-      <div class="relative"> <span
-        class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">person</span>
-        <input type="text" placeholder="Email or Username"
-               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">person</span>
+        <input type="email" formControlName="email" placeholder="Email"
+               class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['email'].invalid && f['email'].touched}" />
+        <div *ngIf="f['email'].invalid && f['email'].touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+        </div>
       </div>
-      <div class="relative"> <span
-        class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">lock</span>
-        <input type="password" placeholder="Password"
-               class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all" />
-        <span
-          class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">visibility</span>
+
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">lock</span>
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password"
+               class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all"
+               [ngClass]="{'border-red-500': f['password'].invalid && f['password'].touched}" />
+        <span (click)="togglePasswordVisibility()"
+              class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </span>
+        <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-sm mt-1">
+          Password is required
+        </div>
       </div>
+
       <div class="flex items-center justify-between">
-        <div class="flex items-center"> <input type="checkbox" id="remember-me"
-                                               class="h-4 w-4 text-[#c1121f] focus:ring-[#c1121f] border-gray-300 rounded" /> <label
-          for="remember-me" class="ml-2 block text-sm">Remember me</label> </div> <a href="#"
-                                                                                     class="text-sm font-medium text-[#c1121f] hover:text-[#780000] transition-colors">Forgot Password?</a>
-      </div> <button type="submit" style="background-color: #c1121f"
-                     class="w-full bg-[#c1121f] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#780000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c1121f] transform hover:scale-[1.02] transition-all">
-      Login </button>
+        <div class="flex items-center">
+          <input type="checkbox" id="remember-me" formControlName="rememberMe"
+                 class="h-4 w-4 text-[#c1121f] focus:ring-[#c1121f] border-gray-300 rounded" />
+          <label for="remember-me" class="ml-2 block text-sm">Remember me</label>
+        </div>
+        <a href="#" class="text-sm font-medium text-[#c1121f] hover:text-[#780000] transition-colors">Forgot Password?</a>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || isSubmitting"
+              class="w-full bg-[#c1121f] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#780000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c1121f] transform hover:scale-[1.02] transition-all"
+              [ngClass]="{'opacity-70 cursor-not-allowed': loginForm.invalid || isSubmitting}">
+        {{ isSubmitting ? 'Logging in...' : 'Login' }}
+      </button>
     </form>
+
     <div class="mt-6">
       <div class="relative">
         <div class="absolute inset-0 flex items-center">
           <div class="w-full border-t border-gray-300"></div>
         </div>
-        <div class="relative flex justify-center text-sm"> <span class="px-2 bg-white text-gray-500">OR</span>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-white text-gray-500">OR</span>
         </div>
       </div>
-      <div class="mt-6 grid grid-cols-2 gap-3"> <button
-        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
-        <i class="fa-brands fa-google text-xl mr-2 text-[#DB4437]"></i> Google </button> <button
-        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
-        <i class="fa-brands fa-facebook text-xl mr-2 text-[#4267B2]"></i> Facebook </button> </div>
+
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button (click)="loginWithGoogle()" type="button"
+                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
+          <i class="fa-brands fa-google text-xl mr-2 text-[#DB4437]"></i> Google
+        </button>
+        <button (click)="loginWithFacebook()" type="button"
+                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium hover:bg-gray-50 transform hover:scale-[1.02] transition-all">
+          <i class="fa-brands fa-facebook text-xl mr-2 text-[#4267B2]"></i> Facebook
+        </button>
+      </div>
     </div>
+
     <div class="mt-6 text-center">
-      <p class="text-sm"> Don&#x27;t have an account? <a href="#"
-                                                         class="font-medium text-[#c1121f] hover:text-[#780000] ml-1 transition-colors">Register now</a> </p>
+      <p class="text-sm"> Don&#x27;t have an account?
+        <a routerLink="/register" class="font-medium text-[#c1121f] hover:text-[#780000] ml-1 transition-colors">Register now</a>
+      </p>
     </div>
   </div>
 </main>
-<app-footer></app-footer>
