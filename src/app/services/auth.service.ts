@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {catchError, Observable} from 'rxjs';
+import { BehaviorSubject, Observable, catchError, switchMap } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -30,29 +30,39 @@ export interface User {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private authState = new BehaviorSubject<{ isLoggedIn: boolean; role: string | null }>({
+    isLoggedIn: this.isLoggedIn(),
+    role: this.getUserRole(),
+  });
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { }
+  authState$ = this.authState.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(request: AuthenticationRequest): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(AUTH_API + 'login', request, { headers, responseType: 'text' })
-      .pipe(
-        map(token => {
-          console.log('Token received:', token);
-          this.saveToken(token);
-          return { token };
-        }),
-        catchError(error => {
-          console.error('Login error:', error);
-          throw error;
-        })
-      );
+    return this.http.post(AUTH_API + 'login', request, { headers, responseType: 'text' }).pipe(
+      map((token) => {
+        this.saveToken(token);
+        return token;
+      }),
+      switchMap((token) => {
+        return this.getUserInfo().pipe(
+          map((user) => {
+            this.saveUser(user);
+            this.authState.next({ isLoggedIn: true, role: user.role }); // Update auth state
+            return { token, user };
+          })
+        );
+      }),
+      catchError((error) => {
+        console.error('Login error:', error);
+        throw error;
+      })
+    );
   }
 
   register(request: RegisterRequest): Observable<User> {
@@ -61,11 +71,11 @@ export class AuthService {
 
   logout(): void {
     window.sessionStorage.clear();
+    this.authState.next({ isLoggedIn: false, role: null }); // Update auth state
     this.router.navigate(['/login']);
   }
 
   saveToken(token: string): void {
-    console.log('Saving token:', token);
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
@@ -88,12 +98,11 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<any> {
-    return this.http.get<User>(AUTH_API + 'user-info')
-      .pipe(
-        tap(user => {
-          this.saveUser(user);
-        })
-      );
+    return this.http.get<User>(AUTH_API + 'user-info').pipe(
+      tap((user) => {
+        this.saveUser(user);
+      })
+    );
   }
 
   isLoggedIn(): boolean {

@@ -58,10 +58,10 @@ export class LoginComponent implements OnInit {
 
     const loginRequest: AuthenticationRequest = {
       email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      password: this.loginForm.value.password,
     };
 
-    console.log('Login request payload:', loginRequest); // Log the payload
+    console.log('Login request payload:', loginRequest);
 
     this.authService.login(loginRequest).subscribe({
       next: () => {
@@ -73,29 +73,32 @@ export class LoginComponent implements OnInit {
           localStorage.removeItem('remember-user');
         }
 
-        this.router.navigate(['/details']);
+        const userRole = this.authService.getUserRole();
+        console.log('User role:', userRole);
+        if (userRole === 'ADMIN') {
+          this.router.navigate(['/dashboard']);
+        } else {
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigate([returnUrl]);
+        }
       },
       error: (error) => {
         this.isSubmitting = false;
         this.errorMessage = error.error?.message || 'Invalid email or password';
-        console.error('Login error:', error); // Log the error
-      }
+        console.error('Login error:', error);
+      },
     });
   }
 
 
-  // Social auth methods (to be implemented with appropriate social auth providers)
   loginWithGoogle(): void {
-    // Implement Google login
     console.log('Google login not implemented');
   }
 
   loginWithFacebook(): void {
-    // Implement Facebook login
     console.log('Facebook login not implemented');
   }
 
-  // Helper method for the template
   get f() {
     return this.loginForm.controls;
   }

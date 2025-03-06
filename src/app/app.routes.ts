@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
-import {LandingComponent} from "./components/landing/landing.component";
-import {RegisterComponent} from "./components/auth/register/register.component";
-import {LoginComponent} from "./components/auth/login/login.component";
-import {ProductsComponent} from "./components/products/products.component";
-import {ProductDetailsComponent} from "./components/product-details/product-details.component";
+import { LandingComponent } from './components/landing/landing.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { AddPlayerComponent } from './components/dashboard/add-player/add-player.component';
+import { adminGuard } from './guards/admin.guard';
+import {PlayersListComponent} from "./components/dashboard/players-list/players-list.component";
 
 export const routes: Routes = [
   {
@@ -30,5 +33,17 @@ export const routes: Routes = [
     path: 'details',
     component: ProductDetailsComponent,
     title: 'WAC - Product Details',
+  },
+  {
+    path: 'dashboard',
+    component: AddPlayerComponent,
+    title: 'WAC - Dashboard',
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'players-list',
+    component: PlayersListComponent,
+    title: 'WAC - Dashboard',
+    canActivate: [adminGuard],
   },
 ];

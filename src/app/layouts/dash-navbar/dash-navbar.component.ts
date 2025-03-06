@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-navbar-logged',
+  selector: 'app-dash-navbar',
   standalone: true,
-  imports: [
-    RouterLink
-  ],
-  templateUrl: './navbar-logged.component.html',
-  styleUrl: './navbar-logged.component.css'
+  imports: [],
+  templateUrl: './dash-navbar.component.html',
+  styleUrl: './dash-navbar.component.css'
 })
-export class NavbarLoggedComponent {
+export class DashNavbarComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   logout(): void {
