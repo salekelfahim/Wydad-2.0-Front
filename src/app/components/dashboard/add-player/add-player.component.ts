@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {PlayerService} from "../../../services/player.service";
-import {Player} from "../../../interfaces/player";
-import {MatIconModule} from "@angular/material/icon";
+import { PlayerService } from "../../../services/player.service";
+import { Player } from "../../../interfaces/player";
+import { MatIconModule } from "@angular/material/icon";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-player',
@@ -44,7 +45,12 @@ export class AddPlayerComponent implements OnInit {
 
   onSubmit(): void {
     if (this.playerForm.invalid || !this.selectedFile) {
-      alert('Please fill out all fields and upload a picture.');
+      Swal.fire({
+        title: 'Validation Error',
+        text: 'Please fill out all fields and upload a picture.',
+        icon: 'error',
+        confirmButtonColor: '#c1121f'
+      });
       return;
     }
 
@@ -58,16 +64,34 @@ export class AddPlayerComponent implements OnInit {
     this.playerService.createPlayer(player, this.selectedFile).subscribe({
       next: (response) => {
         console.log('Player created successfully:', response);
-        this.router.navigate(['/dashboard']);
+
+        Swal.fire({
+          title: 'Success!',
+          text: 'Player added successfully',
+          icon: 'success',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/players-list']);
+        }, 3000);
       },
       error: (error) => {
         console.error('Error creating player:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to create player',
+          icon: 'error',
+          confirmButtonColor: '#c1121f'
+        });
         this.isSubmitting = false;
       },
     });
   }
 
   onCancel(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/players-list']);
   }
 }

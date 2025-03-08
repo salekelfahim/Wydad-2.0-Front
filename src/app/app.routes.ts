@@ -7,6 +7,9 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { AddPlayerComponent } from './components/dashboard/add-player/add-player.component';
 import { adminGuard } from './guards/admin.guard';
 import {PlayersListComponent} from "./components/dashboard/players-list/players-list.component";
+import {EditPlayerComponent} from "./components/dashboard/edit-player/edit-player.component";
+import {AddGameComponent} from "./components/dashboard/add-game/add-game.component";
+import {AddTicketsComponent} from "./components/dashboard/add-tickets/add-tickets.component";
 
 export const routes: Routes = [
   {
@@ -35,15 +38,33 @@ export const routes: Routes = [
     title: 'WAC - Product Details',
   },
   {
-    path: 'dashboard',
+    path: 'add-player',
     component: AddPlayerComponent,
-    title: 'WAC - Dashboard',
+    title: 'WAC - Add Player',
     canActivate: [adminGuard],
   },
   {
     path: 'players-list',
     component: PlayersListComponent,
-    title: 'WAC - Dashboard',
+    title: 'WAC - Players List',
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'edit-player/:id',
+    component: EditPlayerComponent,
+    title: 'WAC - Edit Player',
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'add-game',
+    component: AddGameComponent,
+    title: 'WAC - Add Game',
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'add-tickets',
+    component: AddTicketsComponent,
+    title: 'WAC - Add Tickets',
     canActivate: [adminGuard],
   },
 ];
