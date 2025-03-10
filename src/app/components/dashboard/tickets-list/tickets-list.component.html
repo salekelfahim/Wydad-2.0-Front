@@ -1,1 +1,116 @@
-<p>tickets-list works!</p>
+<main class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="max-w-7xl mx-auto animate-fadeIn">
+    <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex flex-col sm:flex-row gap-3"> <a routerLink="/add-tickets"
+                                                         class="inline-flex items-center justify-center px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-all duration-200 shadow-sm transform hover:scale-105">
+          <span class="material-symbols-outlined mr-2">add</span> Add Ticket </a>
+          <details class="relative group">
+            <summary
+              class="inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 cursor-pointer shadow-sm">
+              <span class="material-symbols-outlined mr-2">filter_alt</span> Filters <span
+              class="material-symbols-outlined ml-2 group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div
+              class="absolute left-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-lg p-4 z-20 animate-fadeIn">
+              <div class="space-y-3">
+                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Category</label> <select
+                  class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]">
+                  <option value="">All Categories</option>
+                  <option value="vip">VIP</option>
+                  <option value="premium">Premium</option>
+                  <option value="standard">Standard</option>
+                  <option value="economy">Economy</option>
+                </select> </div>
+                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+                  <div class="grid grid-cols-2 gap-2"> <input type="number" placeholder="Min"
+                                                              class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]" />
+                    <input type="number" placeholder="Max"
+                           class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]" />
+                  </div>
+                </div>
+                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Game</label> <select
+                  class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]">
+                  <option value="">All Games</option>
+                  <option value="game1">vs Raja CA (Nov 15, 2023)</option>
+                  <option value="game2">vs FAR Rabat (Nov 22, 2023)</option>
+                  <option value="game3">vs RS Berkane (Nov 29, 2023)</option>
+                </select> </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-gray-200"> <button
+                  class="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors hover:scale-105 transform duration-150">Reset</button>
+                  <button
+                    class="px-3 py-1.5 text-sm bg-[#c1121f] text-white rounded-md hover:bg-[#780000] transition-colors hover:scale-105 transform duration-150">Apply</button>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="relative w-full md:w-64 lg:w-80">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"> <span
+            class="material-symbols-outlined text-gray-400">search</span> </div> <input type="text"
+                                                                                        placeholder="Search tickets..."
+                                                                                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200" />
+        </div>
+      </div>    </div>
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden animate-fadeIn" style="animation-delay:0.2s">
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full">
+          <thead>
+          <tr class="bg-gray-50">
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Game</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let ticket of tickets" class="hover:bg-gray-50 transition-colors duration-150 animate-fadeIn">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10 mr-3">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+                    alt="Wydad AC Logo"
+                   />                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-900">vs {{ ticket.game.opponent }}</div>
+                  <div class="text-xs text-gray-500">{{ ticket.game.date | date:'MMM d, y' }} • {{ ticket.game.time }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+    <span [ngClass]="{
+      'bg-blue-100 text-blue-800': ticket.category === 'VIP',
+      'bg-green-100 text-green-800': ticket.category === 'NORMAL'
+    }" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+      {{ ticket.category }}
+    </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm font-medium text-gray-900">{{ ticket.price }} DH</div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900">{{ ticket.quantity }}</div>
+            </td>
+            <td class="px-6 py-4 text-center text-sm font-medium">
+              <div class="flex justify-center space-x-2">
+<!--                <button class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200">-->
+<!--                  <span class="material-symbols-outlined transform hover:scale-110 transition-transform">edit</span>-->
+<!--                </button>-->
+                <button
+                  class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200"
+                  (click)="ticket.id && deleteTicket(ticket.id)">
+                  <span class="material-symbols-outlined transform hover:scale-110 transition-transform">delete</span>
+                </button>
+<!--                <button class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200">-->
+<!--                  <span class="material-symbols-outlined transform hover:scale-110 transition-transform">visibility</span>-->
+<!--                </button>-->
+              </div>
+            </td>
+          </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

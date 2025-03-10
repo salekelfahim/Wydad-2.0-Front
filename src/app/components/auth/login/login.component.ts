@@ -40,7 +40,12 @@ export class LoginComponent implements OnInit {
     });
 
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/']);
+      const userRole = this.authService.getUserRole();
+      if (userRole === 'ADMIN') {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.router.navigate(['/']);
+      }
     }
   }
 
@@ -75,11 +80,11 @@ export class LoginComponent implements OnInit {
 
         const userRole = this.authService.getUserRole();
         console.log('User role:', userRole);
+
         if (userRole === 'ADMIN') {
           this.router.navigate(['/dashboard']);
         } else {
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigate([returnUrl]);
+          this.router.navigate(['/']);
         }
       },
       error: (error) => {

@@ -67,19 +67,16 @@ export class AddTicketsComponent implements OnInit {
 
     this.loading = true;
 
-    // Create the ticket object
     const ticket = {
       price: this.ticketForm.value.price,
       quantity: this.ticketForm.value.quantity,
       category: this.ticketForm.value.category,
-      game: { id: this.ticketForm.value.gameId }, // Send game as an object with id
+      game: { id: this.ticketForm.value.gameId },
     };
 
-    console.log('Ticket Data:', ticket);
 
     this.ticketService.createTicket(ticket).subscribe({
       next: (response) => {
-        console.log('Ticket created successfully:', response);
         Swal.fire({
           title: 'Success!',
           text: 'Ticket created successfully',
@@ -88,7 +85,7 @@ export class AddTicketsComponent implements OnInit {
           timerProgressBar: true,
           showConfirmButton: false,
         });
-        this.router.navigate(['/players-list']);
+        this.router.navigate(['/tickets-list']);
       },
       error: (error) => {
         console.error('Error creating ticket:', error);
@@ -98,10 +95,9 @@ export class AddTicketsComponent implements OnInit {
     });
   }
 
-  // Getters for easy access to form fields
   get f() { return this.ticketForm.controls; }
 
   cancel(): void {
-    this.router.navigate(['/players-list']);
+    this.router.navigate(['/tickets-list']);
   }
 }

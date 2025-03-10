@@ -10,6 +10,8 @@ import {PlayersListComponent} from "./components/dashboard/players-list/players-
 import {EditPlayerComponent} from "./components/dashboard/edit-player/edit-player.component";
 import {AddGameComponent} from "./components/dashboard/add-game/add-game.component";
 import {AddTicketsComponent} from "./components/dashboard/add-tickets/add-tickets.component";
+import {TicketsListComponent} from "./components/dashboard/tickets-list/tickets-list.component";
+import {DashboardComponent} from "./components/dashboard/dashboard/dashboard.component";
 
 export const routes: Routes = [
   {
@@ -36,6 +38,12 @@ export const routes: Routes = [
     path: 'details',
     component: ProductDetailsComponent,
     title: 'WAC - Product Details',
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    title: 'WAC - Dashboard',
+    canActivate: [adminGuard],
   },
   {
     path: 'add-player',
@@ -65,6 +73,12 @@ export const routes: Routes = [
     path: 'add-tickets',
     component: AddTicketsComponent,
     title: 'WAC - Add Tickets',
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'tickets-list',
+    component: TicketsListComponent,
+    title: 'WAC - Tickets List',
     canActivate: [adminGuard],
   },
 ];

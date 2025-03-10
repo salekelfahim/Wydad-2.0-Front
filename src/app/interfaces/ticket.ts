@@ -8,5 +8,11 @@ export interface Ticket {
   price: number;
   quantity: number;
   category: Category;
-  game: number;
+  game: {
+    id: number;
+    date?: string;
+    time?: string;
+    opponent?: string;
+    competition?: string;
+  };
 }
