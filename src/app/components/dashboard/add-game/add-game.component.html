@@ -1,0 +1,114 @@
+<main class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden animate-fadeIn">
+    <div class="p-6">
+      <div class="mb-6 flex items-center">
+        <span class="material-symbols-outlined text-[#c1121f] mr-2">sports_soccer</span>
+        <h2 class="text-xl font-semibold text-gray-800">Game Information</h2>
+      </div>
+      <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="animate-fadeIn" style="animation-delay:0.1s">
+              <label for="gameDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-gray-400">calendar_today</span>
+                </div>
+                <input type="date" id="gameDate" formControlName="date"
+                       class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                       placeholder="Select the game date" />
+              </div>
+            </div>
+            <div class="animate-fadeIn" style="animation-delay:0.2s">
+              <label for="gameTime" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-gray-400">schedule</span>
+                </div>
+                <input type="time" id="gameTime" formControlName="time"
+                       class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                       placeholder="Enter the game time" />
+              </div>
+            </div>
+          </div>
+          <div class="animate-fadeIn" style="animation-delay:0.3s">
+            <label for="opponent" class="block text-sm font-medium text-gray-700 mb-1">Opponent</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-gray-400">shield</span>
+              </div>
+              <input type="text" id="opponent" formControlName="opponent"
+                     class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                     placeholder="Enter the opponent's name" />
+            </div>
+          </div>
+          <div class="animate-fadeIn" style="animation-delay:0.4s">
+            <label for="competition" class="block text-sm font-medium text-gray-700 mb-1">Competition</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-gray-400">emoji_events</span>
+              </div>
+              <select id="competition" formControlName="competition"
+                      class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 appearance-none bg-no-repeat bg-right pr-8">
+                <option value="" disabled selected>Select the competition</option>
+                <option *ngFor="let comp of competitions" [value]="comp">{{ comp }}</option>
+              </select>
+            </div>
+          </div>
+<!--          <div class="animate-fadeIn" style="animation-delay:0.5s">-->
+<!--            <label for="venue" class="block text-sm font-medium text-gray-700 mb-1">Venue</label>-->
+<!--            <div class="relative">-->
+<!--              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">-->
+<!--                <span class="material-symbols-outlined text-gray-400">stadium</span>-->
+<!--              </div>-->
+<!--              <select id="venue" formControlName="venue"-->
+<!--                      class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 appearance-none bg-no-repeat bg-right pr-8">-->
+<!--                <option value="" disabled selected>Select the venue</option>-->
+<!--                <option *ngFor="let venue of venues" [value]="venue">{{ venue }}</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="animate-fadeIn bg-gray-50 p-4 rounded-lg border border-gray-200" style="animation-delay:0.6s">-->
+<!--            <h3 class="text-sm font-medium text-gray-700 mb-3 flex items-center">-->
+<!--              <span class="material-symbols-outlined mr-1 text-[#c1121f]">info</span> Additional Information-->
+<!--            </h3>-->
+<!--            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">-->
+<!--              <div>-->
+<!--                <label for="ticketsLink" class="block text-xs font-medium text-gray-500 mb-1">Tickets Link (Optional)</label>-->
+<!--                <div class="relative">-->
+<!--                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">-->
+<!--                    <span class="material-symbols-outlined text-gray-400 text-sm">confirmation_number</span>-->
+<!--                  </div>-->
+<!--                  <input type="url" id="ticketsLink" formControlName="ticketsLink"-->
+<!--                         class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 text-sm"-->
+<!--                         placeholder="https://tickets.wydad.com" />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <label for="broadcastChannel" class="block text-xs font-medium text-gray-500 mb-1">Broadcast Channel (Optional)</label>-->
+<!--                <div class="relative">-->
+<!--                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">-->
+<!--                    <span class="material-symbols-outlined text-gray-400 text-sm">tv</span>-->
+<!--                  </div>-->
+<!--                  <input type="text" id="broadcastChannel" formControlName="broadcastChannel"-->
+<!--                         class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 text-sm"-->
+<!--                         placeholder="e.g. SuperSport, BeIN Sports" />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+        <div class="mt-10 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-end gap-3 animate-fadeIn" style="animation-delay:0.7s">
+          <button type="button" (click)="onCancel()"
+                  class="py-2.5 px-5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center">
+            <span class="material-symbols-outlined mr-1 text-sm">close</span> Cancel
+          </button>
+          <button type="submit" [disabled]="isSubmitting"
+                  class="py-2.5 px-5 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transform hover:scale-105 transition-all duration-200 shadow-md flex items-center justify-center">
+            <span class="material-symbols-outlined mr-1 text-sm">save</span> Save Game
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

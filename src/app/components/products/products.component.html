@@ -1,0 +1,275 @@
+<div id="products" class="w-full flex">
+  <div class="w-full font-sans">
+    <div class="bg-[#c1121f] relative overflow-hidden h-[500px] sm:h-[600px]">
+      <div class="absolute inset-0 bg-cover bg-center opacity-20"></div>
+      <div class="container mx-auto h-full relative z-10 flex flex-col md:flex-row items-center">
+        <div style="margin-left: 5%" class="flex-1 mt-12 md:mt-0 p-6 md:p-0">
+          <h1 class="text-3xl sm:text-5xl font-bold text-white mb-4 tracking-tight">OFFICIAL WYDAD AC MERCHANDISE
+          </h1>
+          <p class="text-xl sm:text-2xl text-white/90 mb-8">Wear your passion with pride</p>
+          <button (click)="scrollToProducts()"
+                  class="bg-white text-[#c1121f] px-8 py-3 rounded-md font-bold flex items-center shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:translate-x-1">
+            SHOP NOW <span class="material-symbols-outlined ml-2">arrow_forward</span>
+          </button>
+        </div>
+        <div class="flex-1 relative h-full hidden md:flex items-end">
+          <img style=" margin-left: 8%; width: 60%; height: 90%; margin-bottom: 3%"
+               src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+               alt="New Jersey Model"
+               class="object-contain h-[90%] transform transition-all duration-700 hover:scale-105" />
+          <div class="absolute top-10 right-10 bg-white text-[#c1121f] rounded-full py-2 px-4 font-bold shadow-lg animate-pulse">
+            NEW ARRIVAL
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 px-4 bg-gray-50 border-b border-gray-200 overflow-hidden">
+      <div class="container mx-auto">
+        <div class="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide">
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg cursor-pointer border-b-4 border-[#c1121f]">
+            <span class="material-symbols-outlined text-4xl text-[#c1121f] mb-2">sports_hockey</span> <span
+            class="font-medium text-center">Jerseys</span> </div>
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg hover:border-b-4 hover:border-[#c1121f] cursor-pointer">
+            <span class="material-symbols-outlined text-4xl text-gray-700 mb-2">fitness_center</span> <span
+            class="font-medium text-center">Training Wear</span> </div>
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg hover:border-b-4 hover:border-[#c1121f] cursor-pointer">
+            <span class="material-symbols-outlined text-4xl text-gray-700 mb-2">checkroom</span> <span
+            class="font-medium text-center">Casual Clothing</span> </div>
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg hover:border-b-4 hover:border-[#c1121f] cursor-pointer">
+            <span class="material-symbols-outlined text-4xl text-gray-700 mb-2">watch</span> <span
+            class="font-medium text-center">Accessories</span> </div>
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg hover:border-b-4 hover:border-[#c1121f] cursor-pointer">
+            <span class="material-symbols-outlined text-4xl text-gray-700 mb-2">trophy</span> <span
+            class="font-medium text-center">Memorabilia</span> </div>
+          <div
+            class="flex-shrink-0 w-40 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg hover:border-b-4 hover:border-[#c1121f] cursor-pointer">
+            <span class="material-symbols-outlined text-4xl text-gray-700 mb-2">star</span> <span
+            class="font-medium text-center">Limited Editions</span> </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter bar - Removed sticky positioning -->
+    <div id="products-section" class="bg-white border-b border-gray-200 shadow-sm">
+      <div class="container mx-auto flex flex-wrap items-center justify-between py-3 px-4">
+        <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+          <div class="flex border border-gray-300 rounded-md">
+            <button class="p-2 bg-[#c1121f] text-white rounded-l-md">
+              <span class="material-symbols-outlined">grid_view</span>
+            </button>
+            <button class="p-2 text-gray-500 rounded-r-md hover:bg-gray-100 transition-colors">
+              <span class="material-symbols-outlined">view_list</span>
+            </button>
+          </div>
+          <button class="flex items-center space-x-1 bg-gray-100 py-2 px-3 rounded-md hover:bg-gray-200 transition-colors">
+            <span class="material-symbols-outlined text-gray-600">filter_alt</span>
+            <span>Filters</span>
+          </button>
+        </div>
+        <div class="flex items-center w-full sm:w-auto mb-2 sm:mb-0">
+          <div class="flex items-center bg-gray-100 rounded-md py-2 px-4 w-full sm:w-auto">
+            <span class="text-sm font-medium">Sort by:</span>
+            <div class="relative ml-2">
+              <select class="bg-transparent pr-8 pl-2 py-1 border-0 focus:ring-0 focus:outline-none appearance-none cursor-pointer">
+                <option>Newest</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Bestsellers</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">expand_more</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 flex-wrap">
+            <span *ngFor="let size of sizes" [ngClass]="{'hidden': !size.checked}"
+                  class="inline-flex items-center bg-gray-100 text-sm rounded-full py-1 px-3">
+              Size: {{ size.value }}
+              <span (click)="toggleSize(size.value); applyFilters()"
+                    class="material-symbols-outlined ml-1 text-xs cursor-pointer hover:text-[#c1121f]">close</span>
+            </span>
+          <span *ngIf="minPrice !== 25 || maxPrice !== 100" class="inline-flex items-center bg-gray-100 text-sm rounded-full py-1 px-3">
+              Price: ${{ minPrice }}-${{ maxPrice }}
+            <span (click)="minPrice = 25; maxPrice = 100; applyFilters()"
+                  class="material-symbols-outlined ml-1 text-xs cursor-pointer hover:text-[#c1121f]">close</span>
+            </span>
+          <span *ngIf="selectedType !== 'all'" class="inline-flex items-center bg-gray-100 text-sm rounded-full py-1 px-3">
+              Type: {{ selectedType }}
+            <span (click)="selectedType = 'all'; applyFilters()"
+                  class="material-symbols-outlined ml-1 text-xs cursor-pointer hover:text-[#c1121f]">close</span>
+            </span>
+          <span class="text-sm text-gray-500 whitespace-nowrap">Showing {{ productCount }} products</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 min-h-screen">
+      <div class="container mx-auto py-8 px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/4 bg-white rounded-lg shadow-md p-6 h-fit">
+            <h3 class="text-lg font-bold mb-4">Filters</h3>
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Price Range</h4>
+              <div class="px-2">
+                <div class="relative h-2 bg-gray-200 rounded-full mb-4">
+                  <div class="absolute h-2 bg-[#c1121f] rounded-full"
+                       [style.width]="((maxPrice - minPrice) / 75 * 100) + '%'"
+                       [style.left]="((minPrice - 25) / 75 * 100) + '%'"></div>
+
+                  <!-- This is a simplified version - in a real implementation, you'd use a proper range slider component -->
+                  <input type="range" [(ngModel)]="minPrice" min="25" max="100" (change)="applyFilters()"
+                         class="absolute w-full h-2 opacity-0 cursor-pointer">
+                  <input type="range" [(ngModel)]="maxPrice" min="25" max="100" (change)="applyFilters()"
+                         class="absolute w-full h-2 opacity-0 cursor-pointer">
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-sm font-medium">${{ minPrice }}</span>
+                  <span class="text-sm font-medium">${{ maxPrice }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Size</h4>
+              <div class="flex flex-wrap gap-2">
+                <label *ngFor="let size of sizes" class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox"
+                         [checked]="size.checked"
+                         (change)="size.checked = !size.checked; applyFilters()"
+                         class="rounded border-gray-300 text-[#c1121f] focus:ring-[#c1121f]" />
+                  <span>{{ size.value }}</span>
+                </label>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Product Type</h4>
+              <div class="relative">
+                <select [(ngModel)]="selectedType" (change)="applyFilters()"
+                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all appearance-none bg-white">
+                  <option value="all">All Types</option>
+                  <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">expand_more</span>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button (click)="clearAllFilters()"
+                      class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded font-medium hover:bg-gray-300 transition-all">
+                Clear All
+              </button>
+              <button (click)="applyFilters()"
+                      class="flex-1 bg-[#c1121f] text-white py-2 px-4 rounded font-medium hover:bg-[#780000] transition-all shadow-md">
+                Apply Filters
+              </button>
+            </div>
+          </div>
+          <div class="lg:w-3/4">
+            <div class="container mx-auto px-4 py-8">
+              <h1 class="text-2xl font-bold mb-6">All Products</h1>
+
+              <!-- Loading state -->
+              <div *ngIf="loading" class="flex justify-center items-center py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+              </div>
+
+              <!-- Error state -->
+              <div *ngIf="error" class="bg-red-100 text-red-700 p-4 rounded-lg mb-6">
+                {{ error }}
+              </div>
+
+              <!-- Products grid -->
+              <div *ngIf="!loading && !error" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div *ngFor="let product of filteredProducts"
+                     class="bg-white rounded-lg shadow-md overflow-hidden group transition-all duration-300 hover:shadow-lg">
+                  <div class="relative overflow-hidden h-64">
+                    <!-- Main product image -->
+                    <img
+                      [src]="getImageUrl(product.picture)"
+                      [alt]="product.name"
+                      class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    <!-- Back image (could be the same in this case) -->
+                    <img
+                      [src]="getImageUrl(product.picture)"
+                      [alt]="product.name"
+                      class="w-full h-full object-cover object-center absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    />
+
+                    <!-- New tag - could be conditional based on product data -->
+                    <span *ngIf="product.quantity > 100"
+                          class="absolute top-3 left-3 bg-[#c1121f] text-white text-xs font-bold uppercase py-1 px-2 rounded-md">
+                        New
+                      </span>
+
+                    <!-- Favorite button -->
+                    <button
+                      (click)="toggleFavorite(product)"
+                      class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-100">
+                      <span class="material-symbols-outlined text-gray-700 hover:text-[#c1121f]">favorite</span>
+                    </button>
+
+                    <!-- Action buttons -->
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <button
+                        (click)="addToCart(product)"
+                        class="bg-[#c1121f] text-white py-2 px-4 rounded-l-md hover:bg-[#780000] transition-colors shadow-lg flex-1 max-w-[50%] text-center text-sm sm:text-base">
+                        Add to Cart
+                      </button>
+                      <button
+                        (click)="quickView(product)"
+                        class="bg-white text-gray-800 py-2 px-4 rounded-r-md hover:bg-gray-100 transition-colors shadow-lg flex-1 max-w-[50%] text-center text-sm sm:text-base">
+                        Quick View
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="p-4">
+                    <!-- Product category -->
+                    <span class="text-xs text-gray-500 uppercase">{{ product.type }}</span>
+
+                    <!-- Product name -->
+                    <h3 class="font-medium text-gray-900 mb-1 truncate">{{ product.name }}</h3>
+
+                    <!-- Size indicator -->
+                    <div class="mb-1">
+                      <span class="text-xs bg-gray-100 px-2 py-1 rounded">{{ product.size }}</span>
+                    </div>
+
+                    <!-- Ratings - mockup (could be from actual data) -->
+                    <div class="flex items-center mb-1">
+                      <div class="flex text-yellow-400">
+                        <span class="material-symbols-outlined text-sm">star</span>
+                        <span class="material-symbols-outlined text-sm">star</span>
+                        <span class="material-symbols-outlined text-sm">star</span>
+                        <span class="material-symbols-outlined text-sm">star</span>
+                        <span class="material-symbols-outlined text-sm">star_half</span>
+                      </div>
+                      <span class="text-xs ml-1 text-gray-500">({{ product.quantity % 50 + 10 }})</span>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="flex items-center justify-between">
+                      <div class="font-bold text-gray-900">{{ formatPrice(product.price) }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Empty state -->
+              <div *ngIf="!loading && !error && filteredProducts.length === 0" class="text-center py-12">
+                <div class="text-gray-500 mb-4">No products found</div>
+                <button (click)="clearAllFilters()" class="bg-[#c1121f] text-white py-2 px-6 rounded-md hover:bg-[#780000] transition-colors">
+                  Clear Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

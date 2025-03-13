@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+
+/* Add custom styles for nationality text */
+.nationality-text {
+  font-size: 0.875rem; /* Adjust font size */
+  color: #4a5568; /* Adjust text color */
+}
+
+/* Add custom styles for the number icon */
+.number-icon {
+  color: #718096; /* Adjust icon color */
+}

@@ -1,0 +1,47 @@
+<main id="webcrumbs" class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Photo</th>
+          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Name</th>
+          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Position</th>
+          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Number</th>
+          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-center text-gray-900 sm:px-6">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+        <tr *ngFor="let player of players" class="hover:bg-gray-50 transition-colors">
+          <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
+            <img
+              [src]="getImageUrl(player.picture)"
+              [alt]="player.firstName"
+              class="h-10 w-10 rounded-full object-cover"
+              (error)="handleImageError($event, player)"
+            />
+          </td>
+          <td class="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:px-6">{{ player.firstName }} {{ player.lastName }}</td>
+          <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">{{ player.position }}</td>
+          <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
+            {{ player.number }}
+          </td>
+          <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">
+            <div class="flex items-center justify-center space-x-2">
+              <button class="text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+              <button class="text-gray-600 hover:text-gray-800 p-1 rounded-full hover:bg-gray-50 transition-colors" (click)="navigateToEdit(player.id!)">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-50 transition-colors" (click)="confirmDelete(player)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

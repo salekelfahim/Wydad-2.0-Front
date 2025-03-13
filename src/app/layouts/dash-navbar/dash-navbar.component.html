@@ -1,0 +1,26 @@
+<header id="webcrumbs" class="bg-white shadow-sm z-10">
+  <div class="flex items-center justify-between h-16 px-4">
+    <div class="flex items-center md:hidden"> <button
+      class="p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"> <span
+      class="material-symbols-outlined hidden sm:inline-block md:text-lg lg:text-xl transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-12 cursor-pointer">menu</span>
+    </button> <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Wydad_Athletic_Club.png"
+                   alt="Wydad AC Logo" class="h-8 w-auto ml-2" /> </div>
+    <div class="flex-1 flex justify-center md:justify-start">
+      <h1 class="text-xl font-semibold md:ml-4 text-gray-800">Dashboard</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+      <details class="relative">
+        <summary class="list-none cursor-pointer flex items-center justify-center"> <span
+          class="material-symbols-outlined bg-[#c1121f] text-white p-2 rounded-full hover:bg-[#780000] transition-all duration-300 transform hover:scale-105 shadow-md">
+                      person </span> </summary>
+        <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-xl rounded-lg py-2 z-50"> <a href="#"
+                                                                                                     class="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors"> <span
+          class="material-symbols-outlined mr-2 text-gray-600">account_circle</span> My Account </a>
+          <div class="border-t border-gray-200 my-1"></div> <a (click)="logout()"
+                                                               class="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors text-[#c1121f]"> <span
+            class="material-symbols-outlined mr-2">logout</span> Logout </a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

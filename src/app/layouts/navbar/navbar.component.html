@@ -1,0 +1,32 @@
+<nav id="navbar" class="bg-white shadow-lg py-4 px-4 sm:px-8 sticky top-0 z-50">
+  <div class="container mx-auto flex items-center justify-between">
+    <div class="flex items-center">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+        alt="Wydad AC Logo"
+        class="h-8 sm:h-12 w-auto"
+        routerLink="/" />
+    </div>
+    <div class="hidden md:flex items-center space-x-8">
+      <a routerLink="/players" class="hover:text-[#c1121f] transition-colors">Players</a>
+      <a routerLink="/products" class="hover:text-[#c1121f] transition-colors">Products</a>
+      <a routerLink="/games" class="hover:text-[#c1121f] transition-colors">Games</a>
+      <a routerLink="/news" class="hover:text-[#c1121f] transition-colors">News</a>
+      <button routerLink="/login" class="border-2 border-[#c1121f] px-4 py-2 rounded hover:bg-[#c1121f] hover:text-white transition-all">Login</button>
+      <button routerLink="/register" style="background-color: #c1121f" class="bg-[#c1121f] text-white px-4 py-2 rounded hover:bg-[#780000] transition-colors">Register</button>
+    </div>
+    <details class="md:hidden relative">
+      <summary class="list-none">
+        <span class="material-symbols-outlined cursor-pointer">menu</span>
+      </summary>
+      <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
+        <a routerLink="/players" class="block px-4 py-2 hover:bg-[#f8f9fa]">Players</a>
+        <a routerLink="/products" class="block px-4 py-2 hover:bg-[#f8f9fa]">Products</a>
+        <a routerLink="/games" class="block px-4 py-2 hover:bg-[#f8f9fa]">Games</a>
+        <a routerLink="/news" class="block px-4 py-2 hover:bg-[#f8f9fa]">News</a>
+        <button routerLink="/login" class="w-full text-left px-4 py-2 hover:bg-[#f8f9fa]">Login</button>
+        <button routerLink="/register" class="w-full text-left px-4 py-2 hover:bg-[#f8f9fa]">Register</button>
+      </div>
+    </details>
+  </div>
+</nav>

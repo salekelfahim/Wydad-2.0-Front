@@ -1,0 +1,260 @@
+<!--<div id="webcrumbs" class="w-full min-h-screen bg-gray-100 font-sans">-->
+<!--  <div class="flex h-screen overflow-hidden">-->
+<!--    <app-sidebar></app-sidebar>-->
+<!--    <div class="flex-1 flex flex-col overflow-hidden">-->
+<!--      <app-dash-navbar></app-dash-navbar>-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<main class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-6 animate-fadeIn">
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h2 class="text-2xl font-bold text-gray-800">Welcome back, Ahmed Tazi!</h2>
+        <p class="text-gray-600 mt-1">Here&#x27;s what&#x27;s happening today.</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div
+        class="bg-white rounded-lg shadow-sm p-6 animate-fadeIn hover:shadow-md transition-all duration-300 transform hover:scale-105 hover:bg-gray-50"
+        style="animation-delay:0.1s">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4"> <span
+            class="material-symbols-outlined">group</span> </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Total Players</p>
+            <h3 class="text-2xl font-bold text-gray-800">28</h3>
+          </div>
+        </div> <a href="#"
+                  class="mt-4 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+        View All Players <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span> </a>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-sm p-6 animate-fadeIn hover:shadow-md transition-all duration-300 transform hover:scale-105 hover:bg-gray-50"
+        style="animation-delay:0.2s">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4"> <span
+            class="material-symbols-outlined">shopping_bag</span> </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Total Products</p>
+            <h3 class="text-2xl font-bold text-gray-800">64</h3>
+          </div>
+        </div> <a href="#"
+                  class="mt-4 inline-flex items-center text-sm font-medium text-green-600 hover:text-green-800 transition-colors">
+        View All Products <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span> </a>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-sm p-6 animate-fadeIn hover:shadow-md transition-all duration-300 transform hover:scale-105 hover:bg-gray-50"
+        style="animation-delay:0.3s">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4"> <span
+            class="material-symbols-outlined">event</span> </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Upcoming Games</p>
+            <h3 class="text-2xl font-bold text-gray-800">5</h3>
+          </div>
+        </div> <a href="#"
+                  class="mt-4 inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-800 transition-colors">
+        View All Games <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span> </a>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-sm p-6 animate-fadeIn hover:shadow-md transition-all duration-300 transform hover:scale-105 hover:bg-gray-50"
+        style="animation-delay:0.4s">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-amber-100 text-amber-600 mr-4"> <span
+            class="material-symbols-outlined">newspaper</span> </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Recent News</p>
+            <h3 class="text-2xl font-bold text-gray-800">12</h3>
+          </div>
+        </div> <a href="#"
+                  class="mt-4 inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-800 transition-colors">
+        View All News <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span> </a>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div class="bg-white rounded-lg shadow-sm animate-fadeIn" style="animation-delay:0.5s">
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+          <h3 class="text-lg font-semibold text-gray-800">Recent Activities</h3> <a href="#"
+                                                                                    class="text-sm text-[#c1121f] hover:text-[#780000] transition-colors">View All</a>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-4">
+            <li class="flex items-start space-x-4 pb-4 border-b border-gray-100">
+              <div class="p-2 rounded-full bg-blue-100 text-blue-600"> <span
+                class="material-symbols-outlined">group</span> </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-medium text-gray-800">New Player Added</h4> <span
+                  class="text-xs text-gray-500">1 hour ago</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Added Mehdi Benjeddi as a new midfielder</p>
+                <p class="text-xs text-gray-500 mt-1">By Ahmed Tazi</p>
+              </div>
+            </li>
+            <li class="flex items-start space-x-4 pb-4 border-b border-gray-100">
+              <div class="p-2 rounded-full bg-green-100 text-green-600"> <span
+                class="material-symbols-outlined">shopping_bag</span> </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-medium text-gray-800">Product Updated</h4> <span
+                  class="text-xs text-gray-500">3 hours ago</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Updated 2023/24 Home Kit prices</p>
+                <p class="text-xs text-gray-500 mt-1">By Youssef Kadiri</p>
+              </div>
+            </li>
+            <li class="flex items-start space-x-4 pb-4 border-b border-gray-100">
+              <div class="p-2 rounded-full bg-purple-100 text-purple-600"> <span
+                class="material-symbols-outlined">event</span> </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-medium text-gray-800">Game Scheduled</h4> <span
+                  class="text-xs text-gray-500">Yesterday</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Added new match vs. FAR Rabat on Nov 22, 2023</p>
+                <p class="text-xs text-gray-500 mt-1">By Ahmed Tazi</p>
+              </div>
+            </li>
+            <li class="flex items-start space-x-4">
+              <div class="p-2 rounded-full bg-amber-100 text-amber-600"> <span
+                class="material-symbols-outlined">newspaper</span> </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-medium text-gray-800">News Article Published</h4> <span
+                  class="text-xs text-gray-500">2 days ago</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Published &#x27;Preparing for the Derby&#x27; article
+                </p>
+                <p class="text-xs text-gray-500 mt-1">By Youssef Kadiri</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="px-6 py-4 bg-gray-50 rounded-b-lg"> <a href="#"
+                                                           class="flex items-center justify-center w-full py-2 text-sm font-medium text-[#c1121f] bg-white border border-gray-200 rounded-md hover:bg-gray-50 transition-colors">
+          View All Activities </a> </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm animate-fadeIn" style="animation-delay:0.6s">
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+          <h3 class="text-lg font-semibold text-gray-800">Upcoming Games</h3> <a href="#"
+                                                                                 class="text-sm text-[#c1121f] hover:text-[#780000] transition-colors">View All</a>
+        </div>
+        <div class="p-6">
+          <ul class="space-y-4">
+            <li class="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-all duration-200">
+              <div class="mr-4 flex-shrink-0">
+                <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100"> <img
+                  src="https://seeklogo.com/images/R/raja-club-athletic-de-casablanca-logo-17E651AC4E-seeklogo.com.png"
+                  alt="Raja CA" class="h-8 w-auto" /> </div>
+              </div>
+              <div class="flex-1">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <h4 class="font-medium text-gray-800">vs Raja CA</h4>
+                    <p class="text-xs text-gray-500">Botola Pro</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-700">Nov 15, 2023</p>
+                    <p class="text-xs text-gray-500">20:00</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-all duration-200">
+              <div class="mr-4 flex-shrink-0">
+                <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100"> <img
+                  src="https://upload.wikimedia.org/wikipedia/en/1/14/AS_FAR_Rabat_logo.png" alt="FAR Rabat"
+                  class="h-8 w-auto" /> </div>
+              </div>
+              <div class="flex-1">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <h4 class="font-medium text-gray-800">vs FAR Rabat</h4>
+                    <p class="text-xs text-gray-500">Botola Pro</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-700">Nov 22, 2023</p>
+                    <p class="text-xs text-gray-500">18:30</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-all duration-200">
+              <div class="mr-4 flex-shrink-0">
+                <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100"> <img
+                  src="https://upload.wikimedia.org/wikipedia/en/e/e9/RS_Berkane_logo.png" alt="RS Berkane"
+                  class="h-8 w-auto" /> </div>
+              </div>
+              <div class="flex-1">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <h4 class="font-medium text-gray-800">vs RS Berkane</h4>
+                    <p class="text-xs text-gray-500">Throne Cup</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-700">Nov 29, 2023</p>
+                    <p class="text-xs text-gray-500">19:45</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-all duration-200">
+              <div class="mr-4 flex-shrink-0">
+                <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100"> <img
+                  src="https://upload.wikimedia.org/wikipedia/en/c/c9/MC_Oujda_logo.png" alt="MC Oujda"
+                  class="h-8 w-auto" /> </div>
+              </div>
+              <div class="flex-1">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <h4 class="font-medium text-gray-800">vs MC Oujda</h4>
+                    <p class="text-xs text-gray-500">Botola Pro</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-700">Dec 5, 2023</p>
+                    <p class="text-xs text-gray-500">20:00</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="px-6 py-4 bg-gray-50 rounded-b-lg"> <a href="#"
+                                                           class="flex items-center justify-center w-full py-2 text-sm font-medium text-[#c1121f] bg-white border border-gray-200 rounded-md hover:bg-gray-50 transition-colors">
+          View All Games </a> </div>
+      </div>
+    </div>
+    <div class="mb-6 animate-fadeIn" style="animation-delay:0.7s">
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"> <a href="#"
+                                                                              class="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 transform hover:scale-105">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mb-3">
+            <span class="material-symbols-outlined">person_add</span> </div> <span
+          class="text-sm font-medium text-gray-800">Add Player</span>
+        </a> <a href="#"
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 transform hover:scale-105">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600 mb-3">
+            <span class="material-symbols-outlined">add_shopping_cart</span> </div> <span
+          class="text-sm font-medium text-gray-800">Add Product</span>
+        </a> <a href="#"
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 transform hover:scale-105">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 mb-3">
+            <span class="material-symbols-outlined">sports_soccer</span> </div> <span
+          class="text-sm font-medium text-gray-800">Add Game</span>
+        </a> <a href="#"
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 transform hover:scale-105">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 mb-3">
+            <span class="material-symbols-outlined">post_add</span> </div> <span
+          class="text-sm font-medium text-gray-800">Add News</span>
+        </a> </div>
+      </div>
+    </div>
+  </div>
+</main>

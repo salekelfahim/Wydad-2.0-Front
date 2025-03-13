@@ -1,0 +1,140 @@
+<main class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden animate-fadeIn">
+    <div class="p-6">
+      <div class="mb-6 flex items-center">
+        <span class="material-symbols-outlined text-[#c1121f] mr-2">confirmation_number</span>
+        <h2 class="text-xl font-semibold text-gray-800">Ticket Information</h2>
+      </div>
+      <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="animate-fadeIn" style="animation-delay:0.1s">
+              <label for="ticketPrice" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-gray-400">attach_money</span>
+                </div>
+                <input
+                  type="number"
+                  id="ticketPrice"
+                  formControlName="price"
+                  min="0"
+                  step="0.01"
+                  class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                  placeholder="Enter the ticket price"
+                />
+              </div>
+              <div *ngIf="submitted && f['price']?.errors" class="mt-1 text-sm text-red-600">
+                <div *ngIf="f['price']?.errors?.['required']">Price is required</div>
+                <div *ngIf="f['price']?.errors?.['min']">Price must be greater than or equal to 0</div>
+              </div>
+            </div>
+            <div class="animate-fadeIn" style="animation-delay:0.2s">
+              <label for="ticketQuantity" class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-gray-400">inventory_2</span>
+                </div>
+                <input
+                  type="number"
+                  id="ticketQuantity"
+                  formControlName="quantity"
+                  min="1"
+                  step="1"
+                  class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                  placeholder="Enter the ticket quantity"
+                />
+              </div>
+              <div *ngIf="submitted && f['quantity']?.errors" class="mt-1 text-sm text-red-600">
+                <div *ngIf="f['quantity']?.errors?.['required']">Quantity is required</div>
+                <div *ngIf="f['quantity']?.errors?.['min']">Quantity must be at least 1</div>
+              </div>
+            </div>
+          </div>
+          <div class="animate-fadeIn" style="animation-delay:0.3s">
+            <label for="ticketCategory" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-gray-400">category</span>
+              </div>
+              <select
+                id="ticketCategory"
+                formControlName="category"
+                class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 appearance-none bg-no-repeat bg-right pr-8"
+                style="background-image:url(&quot;data:image/svg+xml,%3csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; fill=&#x27;none&#x27; viewBox=&#x27;0 0 20 20&#x27;%3e%3cpath stroke=&#x27;%236b7280&#x27; stroke-linecap=&#x27;round&#x27; stroke-linejoin=&#x27;round&#x27; stroke-width=&#x27;1.5&#x27; d=&#x27;M6 8l4 4 4-4&#x27;/%3e%3c/svg%3e&quot;);background-size:1.5em 1.5em">
+                <option value="" disabled>Select the ticket category</option>
+                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+              </select>
+            </div>
+            <div *ngIf="submitted && f['category']?.errors" class="mt-1 text-sm text-red-600">
+              <div *ngIf="f['category']?.errors?.['required']">Category is required</div>
+            </div>
+          </div> <!-- Closing div for ticketCategory -->
+          <div class="animate-fadeIn" style="animation-delay:0.4s">
+            <label for="game" class="block text-sm font-medium text-gray-700 mb-1">Game</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-gray-400">sports_soccer</span>
+              </div>
+              <select
+                id="game"
+                formControlName="gameId"
+                class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200 appearance-none bg-no-repeat bg-right pr-8"
+                style="background-image:url(&quot;data:image/svg+xml,%3csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; fill=&#x27;none&#x27; viewBox=&#x27;0 0 20 20&#x27;%3e%3cpath stroke=&#x27;%236b7280&#x27; stroke-linecap=&#x27;round&#x27; stroke-linejoin=&#x27;round&#x27; stroke-width=&#x27;1.5&#x27; d=&#x27;M6 8l4 4 4-4&#x27;/%3e%3c/svg%3e&quot;);background-size:1.5em 1.5em">
+                <option value="" disabled>Select the game</option>
+                <option *ngFor="let game of games" [value]="game.id">
+                  Wydad AC vs {{game.opponent}} - {{game.date | date:'dd/MM/yyyy'}}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="submitted && f['gameId']?.errors" class="mt-1 text-sm text-red-600">
+              <div *ngIf="f['gameId']?.errors?.['required']">Game is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="error" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg">
+          {{error}}
+        </div>
+
+        <div class="mt-10 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-end gap-3 animate-fadeIn"
+             style="animation-delay:0.7s">
+          <button
+            type="button"
+            (click)="cancel()"
+            class="py-2.5 px-5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center">
+            <span class="material-symbols-outlined mr-1 text-sm">close</span> Cancel
+          </button>
+          <button
+            type="submit"
+            [disabled]="loading"
+            class="py-2.5 px-5 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transform hover:scale-105 transition-all duration-200 shadow-md flex items-center justify-center">
+            <span *ngIf="loading" class="animate-spin mr-2">&#8635;</span>
+            <span *ngIf="!loading" class="material-symbols-outlined mr-1 text-sm">save</span>
+            <span>{{loading ? 'Saving...' : 'Save Tickets'}}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mt-6 mb-4 max-w-3xl mx-auto animate-fadeIn" style="animation-delay:0.8s">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+      <div class="flex items-center">
+        <button
+          (click)="cancel()"
+          class="flex items-center text-gray-600 hover:text-[#c1121f] transition-colors">
+          <span class="material-symbols-outlined mr-1">arrow_back</span>
+          <span>Back to Tickets List</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-4 right-4 md:hidden">
+    <button
+      class="flex items-center justify-center w-12 h-12 bg-[#c1121f] text-white rounded-full shadow-lg hover:bg-[#780000] transition-colors duration-300 transform hover:scale-110">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</main>

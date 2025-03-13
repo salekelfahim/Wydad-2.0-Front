@@ -1,0 +1,135 @@
+<section class="relative h-[400px] sm:h-[600px] bg-cover bg-center mb-16"
+         style="background-image:url(https://scontent.fcmn1-2.fna.fbcdn.net/v/t39.30808-6/461325445_1091291362560610_7360935719527363178_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeG778q8W9ZdIo2YdfKvyrC3DNPOx2OkymIM087HY6TKYv54JyaenXIRx1iEFwOmN6Jpy9JCGqQEfCeYvR5uyg2a&_nc_ohc=6ouKCbbvdugQ7kNvgGtdgOU&_nc_oc=Adi-w1wQcI1czV7pGFYNDiQT3GO0W3eVhzrw1OpYSbIw_kY3_DhNtUblyEHyIXA_bmE&_nc_zt=23&_nc_ht=scontent.fcmn1-2.fna&_nc_gid=AGhPxNMc8_vXtYaZeY_gOQQ&oh=00_AYG1fRESU950hwjkVsuQhTfOKzAv_p7K96VgGeLTsD19RQ&oe=67D8C429)">
+  <div class="absolute inset-0 bg-black bg-opacity-50">
+    <div class="container mx-auto h-full flex flex-col items-center justify-center text-white px-4">
+      <h1 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">MEET THE SQUAD OF WYDAD ATHLETIC CLUB</h1>
+      <p class="text-base sm:text-lg md:text-xl text-center mb-6 sm:mb-8">Discover the talented players who defend the pride of Casablanca and bring glory to WYDAD</p>
+    </div>
+  </div>
+</section>
+
+<div class="container mx-auto px-4 -mt-6 mb-8">
+  <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="relative">
+        <input type="text" placeholder="Search players by name..." [(ngModel)]="searchTerm" (input)="searchPlayers()"
+               class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f]" />
+        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 material-symbols-outlined">search</span>
+      </div>
+      <div class="relative">
+        <div class="w-full">
+          <button (click)="togglePositionDropdown()"
+                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-700 cursor-pointer flex justify-between items-center">
+            <span>Position: {{ selectedPosition || 'All' }}</span>
+            <span class="material-symbols-outlined text-sm">{{ positionDropdownOpen ? 'expand_less' : 'expand_more' }}</span>
+          </button>
+          <div *ngIf="positionDropdownOpen" class="absolute left-0 mt-2 w-full bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+            <div class="py-1">
+              <button (click)="filterByPosition('')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                All Positions
+              </button>
+              <button (click)="filterByPosition('Goalkeeper')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Goalkeepers
+              </button>
+              <button (click)="filterByPosition('Defender')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Defenders
+              </button>
+              <button (click)="filterByPosition('Midfielder')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Midfielders
+              </button>
+              <button (click)="filterByPosition('Forward')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Forwards
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="w-full">
+          <button (click)="toggleNationalityDropdown()"
+                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-700 cursor-pointer flex justify-between items-center">
+            <span>Nationality: {{ selectedNationality || 'Any' }}</span>
+            <span class="material-symbols-outlined text-sm">{{ nationalityDropdownOpen ? 'expand_less' : 'expand_more' }}</span>
+          </button>
+          <div *ngIf="nationalityDropdownOpen" class="absolute left-0 mt-2 w-full bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+            <div class="py-1 max-h-60 overflow-y-auto">
+              <button (click)="filterByNationality('')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Any Nationality
+              </button>
+              <button *ngFor="let nationality of availableNationalities" (click)="filterByNationality(nationality)"
+                      class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors flex items-center">
+                <img [src]="getFlagUrl(nationality)" [alt]="nationality" class="h-4 mr-2" />
+                {{ nationality }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="w-full">
+          <button (click)="toggleSortDropdown()"
+                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-700 cursor-pointer flex justify-between items-center">
+            <span>Sort By: {{ sortCriteria }}</span>
+            <span class="material-symbols-outlined text-sm">{{ sortDropdownOpen ? 'expand_less' : 'expand_more' }}</span>
+          </button>
+          <div *ngIf="sortDropdownOpen" class="absolute left-0 mt-2 w-full bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+            <div class="py-1">
+              <button (click)="sortPlayers('name-asc')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Name (A-Z)
+              </button>
+              <button (click)="sortPlayers('name-desc')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Name (Z-A)
+              </button>
+              <button (click)="sortPlayers('number-asc')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Jersey Number (Low-High)
+              </button>
+              <button (click)="sortPlayers('number-desc')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:text-[#c1121f] transition-colors">
+                Jersey Number (High-Low)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto px-4 mb-10">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div *ngFor="let player of filteredPlayers" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group">
+      <div class="relative overflow-hidden h-96 bg-gray-100">
+        <img [src]="getImageUrl(player.picture)"
+             [alt]="player.firstName"
+             (error)="handleImageError($event, player)"
+             class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        </div>
+        <div class="absolute top-2 left-2 bg-[#1E1E1E]/80 px-2 py-1 text-white font-bold text-2xl rounded-md">
+          {{ player.number }}
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-bold">{{ player.firstName }} {{ player.lastName }}</h3>
+          <span class="inline-block text-sm text-gray-700">
+            {{ player.nationality }}
+          </span>
+        </div>
+        <div class="flex items-center mb-3">
+          <span class="material-symbols-outlined text-gray-600 mr-1 text-sm">sports</span>
+          <span class="text-gray-700 text-sm">{{ player.position }}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          <div class="flex items-center">
+            <span class="material-symbols-outlined text-gray-500 mr-1 text-sm">calendar_month</span>
+            <span class="text-gray-700">{{ calculateAge(player.birthday) }} years</span>
+          </div>
+          <div class="flex items-center">
+            <span class="material-symbols-outlined text-gray-500 mr-1 text-sm">tag</span>
+            <span class="text-gray-700">No. {{ player.number }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
