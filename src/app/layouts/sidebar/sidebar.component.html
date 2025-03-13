@@ -1,95 +1,177 @@
+<!-- sidebar.component.html -->
 <div id="sidebar" style="height: 100vh" class="hidden md:flex flex-col bg-[#1E1E1E] text-white w-64 p-4 transition-all duration-300 ease-in-out">
-  <div class="flex items-center justify-center mb-8 pt-2"> <img style="height: 100%; width: 40%"
-                                                                src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png" alt="Wydad AC Logo"
-                                                                class="h-16 w-auto" /> </div>
-  <div class="flex flex-col space-y-1 flex-grow">
-    <details class="group" open="">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer bg-[#c1121f]/20 text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">dashboard</span> <span>Dashboard</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-white rounded-lg bg-[#c1121f]/10 hover:bg-[#c1121f]/20 transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">home</span> <span class="text-sm">Overview</span>
-      </a> <a href="#"
-              class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">insights</span> <span
-        class="text-sm">Analytics</span> </a> </div>
-    </details>
-    <details class="group">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">group</span> <span>Players</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">add</span> <span class="text-sm">Add
-                    Player</span> </a> <a href="#"
-                                          class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span> <span
-        class="text-sm">View All Players</span> </a> </div>
-    </details>
-    <details class="group">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">shopping_bag</span> <span>Products</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">add</span> <span class="text-sm">Add
-                    Product</span> </a> <a href="#"
-                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span> <span
-        class="text-sm">View All Products</span> </a> </div>
-    </details>
-    <details class="group">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">sports_soccer</span> <span>Games</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">add</span> <span class="text-sm">Add Game</span>
-      </a> <a href="#"
-              class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span> <span
-        class="text-sm">View All Games</span> </a> </div>
-    </details>
-    <details class="group">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">confirmation_number</span> <span>Tickets</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">add</span> <span class="text-sm">Add
-                    Ticket</span> </a> <a href="#"
-                                          class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span> <span
-        class="text-sm">View All Tickets</span> </a> </div>
-    </details>
-    <details class="group">
-      <summary
-        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
-        <span class="material-symbols-outlined mr-3">newspaper</span> <span>News</span> <span
-        class="material-symbols-outlined ml-auto transform group-open:rotate-180 transition-transform duration-200">expand_more</span>
-      </summary>
-      <div class="pl-12 space-y-1 mt-1 animate-fadeIn"> <a href="#"
-                                                           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">add</span> <span class="text-sm">Add News</span>
-      </a> <a href="#"
-              class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
-        <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span> <span
-        class="text-sm">View All News</span> </a> </div>
-    </details>
+  <div class="flex items-center justify-center mb-8 pt-2">
+    <img style="height: 100%; width: 40%" src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png" alt="Wydad AC Logo" class="h-16 w-auto" />
   </div>
-  <div class="pt-4 mt-4 border-t border-gray-700"> <button
-    class="flex items-center justify-center w-full p-2 text-gray-400 rounded-lg hover:bg-gray-700 hover:text-white transition-colors duration-200">
-    <span class="material-symbols-outlined mr-2">chevron_left</span> <span>Collapse Sidebar</span> </button>
+  <div class="flex flex-col space-y-1 flex-grow">
+    <!-- Dashboard Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('dashboard')"
+        [ngClass]="{'section-active': isSectionActive('dashboard')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">dashboard</span>
+        <span>Dashboard</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'dashboard'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'dashboard'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/dashboard"
+           [ngClass]="{'link-active': isActive('/dashboard')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">home</span>
+          <span class="text-sm">Overview</span>
+        </a>
+        <a routerLink="/dashboard/analytics"
+           [ngClass]="{'link-active': isActive('/dashboard/analytics')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">insights</span>
+          <span class="text-sm">Analytics</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Players Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('players')"
+        [ngClass]="{'section-active': isSectionActive('players')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">group</span>
+        <span>Players</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'players'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'players'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/add-player"
+           [ngClass]="{'link-active': isActive('/add-player')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">add</span>
+          <span class="text-sm">Add Player</span>
+        </a>
+        <a routerLink="/players-list"
+           [ngClass]="{'link-active': isActive('/players-list')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span>
+          <span class="text-sm">View All Players</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('products')"
+        [ngClass]="{'section-active': isSectionActive('products')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">shopping_bag</span>
+        <span>Products</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'products'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'products'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/add-product"
+           [ngClass]="{'link-active': isActive('/add-product')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">add</span>
+          <span class="text-sm">Add Product</span>
+        </a>
+        <a routerLink="/products-list"
+           [ngClass]="{'link-active': isActive('/products-list')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span>
+          <span class="text-sm">View All Products</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Games Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('games')"
+        [ngClass]="{'section-active': isSectionActive('games')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">sports_soccer</span>
+        <span>Games</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'games'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'games'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/add-game"
+           [ngClass]="{'link-active': isActive('/add-game')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">add</span>
+          <span class="text-sm">Add Game</span>
+        </a>
+        <a routerLink="/games-list"
+           [ngClass]="{'link-active': isActive('/games-list')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span>
+          <span class="text-sm">View All Games</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tickets Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('tickets')"
+        [ngClass]="{'section-active': isSectionActive('tickets')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">confirmation_number</span>
+        <span>Tickets</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'tickets'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'tickets'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/add-tickets"
+           [ngClass]="{'link-active': isActive('/add-tickets')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">add</span>
+          <span class="text-sm">Add Ticket</span>
+        </a>
+        <a routerLink="/tickets-list"
+           [ngClass]="{'link-active': isActive('/tickets-list')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span>
+          <span class="text-sm">View All Tickets</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- News Section -->
+    <div class="group">
+      <div
+        (click)="toggleSection('news')"
+        [ngClass]="{'section-active': isSectionActive('news')}"
+        class="flex items-center p-3 text-gray-300 rounded-lg cursor-pointer hover:bg-[#c1121f]/20 hover:text-white transition-all duration-200">
+        <span class="material-symbols-outlined mr-3">newspaper</span>
+        <span>News</span>
+        <span class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+              [ngClass]="{'rotate-180': openSection === 'news'}">expand_more</span>
+      </div>
+      <div *ngIf="openSection === 'news'" class="pl-12 space-y-1 mt-1 animate-fadeIn">
+        <a routerLink="/add-news"
+           [ngClass]="{'link-active': isActive('/add-news')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">add</span>
+          <span class="text-sm">Add News</span>
+        </a>
+        <a routerLink="/news-list"
+           [ngClass]="{'link-active': isActive('/news-list')}"
+           class="flex items-center p-2 text-gray-400 rounded-lg hover:bg-[#c1121f]/10 hover:text-white transition-colors duration-200">
+          <span class="material-symbols-outlined mr-2 text-sm">format_list_bulleted</span>
+          <span class="text-sm">View All News</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collapse Sidebar Button -->
+  <div class="pt-4 mt-4 border-t border-gray-700">
+    <button class="flex items-center justify-center w-full p-2 text-gray-400 rounded-lg hover:bg-gray-700 hover:text-white transition-colors duration-200">
+      <span class="material-symbols-outlined mr-2">chevron_left</span>
+      <span>Collapse Sidebar</span>
+    </button>
   </div>
 </div>

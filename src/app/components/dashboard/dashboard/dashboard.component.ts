@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import {RouterOutlet} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router, RouterOutlet} from "@angular/router";
 import {NavbarComponent} from "../../../layouts/navbar/navbar.component";
 import {SidebarComponent} from "../../../layouts/sidebar/sidebar.component";
 import {DashNavbarComponent} from "../../../layouts/dash-navbar/dash-navbar.component";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,13 @@ import {DashNavbarComponent} from "../../../layouts/dash-navbar/dash-navbar.comp
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    const userRole = this.authService.getUserRole();
+    if (userRole !== 'ADMIN') {
+      this.router.navigate(['/']);
+    }
+  }
 }

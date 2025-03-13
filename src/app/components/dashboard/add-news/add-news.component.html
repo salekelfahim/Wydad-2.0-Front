@@ -1,0 +1,142 @@
+<main class="flex-1 overflow-y-auto bg-gray-100 p-4">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden animate-fadeIn">
+    <div class="p-6">
+      <div class="mb-6 flex items-center">
+        <span class="material-symbols-outlined text-[#c1121f] mr-2">newspaper</span>
+        <h2 class="text-xl font-semibold text-gray-800">News Article Information</h2>
+      </div>
+      <form [formGroup]="newsForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-6">
+          <!-- Title Section -->
+          <div class="animate-fadeIn" style="animation-delay:0.1s">
+            <label for="newsTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <div class="relative">
+              <input type="text" id="newsTitle" maxLength="100" formControlName="title"
+                     class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f] focus:border-[#c1121f] transition-all duration-200"
+                     placeholder="Enter the news title" />
+              <div class="absolute right-3 bottom-3 text-xs text-gray-500">
+                <span id="charCount">0</span>/100
+              </div>
+            </div>
+            <div *ngIf="newsForm.get('title')?.invalid && (newsForm.get('title')?.dirty || newsForm.get('title')?.touched)"
+                 class="text-red-500 text-xs mt-1">
+              <div *ngIf="newsForm.get('title')?.errors?.['required']">Title is required.</div>
+              <div *ngIf="newsForm.get('title')?.errors?.['maxlength']">Title cannot exceed 100 characters.</div>
+            </div>
+          </div>
+
+          <!-- Content Section -->
+          <div class="animate-fadeIn" style="animation-delay:0.2s">
+            <label for="newsContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+            <div class="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#c1121f] focus-within:border-[#c1121f] transition-all duration-200">
+              <textarea id="newsContent" rows="8" maxLength="10000" formControlName="content"
+                        class="w-full p-3 focus:outline-none" placeholder="Write your news content here"></textarea>
+              <div class="bg-gray-50 p-2 flex justify-end border-t border-gray-300">
+                <span class="text-xs text-gray-500">
+                  <span id="contentCharCount">0</span>/10,000 characters
+                </span>
+              </div>
+            </div>
+            <div *ngIf="newsForm.get('content')?.invalid && (newsForm.get('content')?.dirty || newsForm.get('content')?.touched)"
+                 class="text-red-500 text-xs mt-1">
+              <div *ngIf="newsForm.get('content')?.errors?.['required']">Content is required.</div>
+              <div *ngIf="newsForm.get('content')?.errors?.['maxlength']">Content cannot exceed 10,000 characters.</div>
+            </div>
+          </div>
+
+          <!-- Cover Image Section -->
+          <div class="animate-fadeIn" style="animation-delay:0.3s">
+            <label for="coverImageInput" class="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
+            <div class="mt-1 flex flex-col sm:flex-row items-start sm:items-center">
+              <div class="w-full sm:w-48 h-48 rounded-lg bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-300 mb-4 sm:mb-0 sm:mr-6 overflow-hidden group relative hover:bg-gray-50 transition-colors">
+                <div class="flex flex-col items-center justify-center text-center p-4">
+                  <span class="material-symbols-outlined text-gray-400 text-4xl mb-2 group-hover:text-gray-500 transition-colors">add_photo_alternate</span>
+                  <span class="text-gray-500 text-sm font-medium group-hover:text-gray-600 transition-colors">Click to upload</span>
+                  <span class="text-gray-400 text-xs mt-1">JPG, PNG or GIF</span>
+                </div>
+                <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span class="text-white text-sm font-medium">Choose Image</span>
+                </div>
+                <input type="file" id="coverImageInput" accept=".jpg,.jpeg,.png,.gif,.webp" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                       (change)="onFileSelected($event)" />
+              </div>
+              <div class="flex-1">
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <h4 class="text-sm font-medium text-gray-700 mb-2">Image Guidelines</h4>
+                  <ul class="text-xs text-gray-500 space-y-1">
+                    <li class="flex items-center">
+                      <span class="material-symbols-outlined text-gray-400 mr-1 text-sm">check_circle</span> File formats: JPG, PNG or GIF only
+                    </li>
+                    <li class="flex items-center">
+                      <span class="material-symbols-outlined text-gray-400 mr-1 text-sm">check_circle</span> Maximum file size: 5MB
+                    </li>
+                    <li class="flex items-center">
+                      <span class="material-symbols-outlined text-gray-400 mr-1 text-sm">check_circle</span> Recommended ratio: 16:9 (landscape)
+                    </li>
+                    <li class="flex items-center">
+                      <span class="material-symbols-outlined text-gray-400 mr-1 text-sm">check_circle</span> Min resolution: 1200 x 675 pixels
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 hidden" id="imagePreviewContainer">
+              <div class="relative w-full p-2 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700">Image Preview</span>
+                  <button type="button" class="text-gray-400 hover:text-gray-500 transition-colors" (click)="removeImage()">
+                    <span class="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+                <div class="relative w-full h-36 bg-gray-900 rounded overflow-hidden">
+                  <img id="imagePreview" [src]="imagePreview || ''" alt="Preview" class="w-full h-full object-contain" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="mt-10 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-end gap-3 animate-fadeIn"
+             style="animation-delay:0.5s">
+          <button type="button" (click)="onCancel()"
+                  class="py-2.5 px-5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+            Cancel
+          </button>
+          <button type="submit" [disabled]="isSubmitting || newsForm.invalid || !selectedFile"
+                  class="py-2.5 px-5 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transform hover:scale-105 transition-all duration-200 shadow-md flex items-center justify-center">
+            <span class="material-symbols-outlined mr-1 text-sm">publish</span> Save Article
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="mt-6 mb-4 max-w-4xl mx-auto animate-fadeIn" style="animation-delay:0.6s">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+      <div class="flex items-center">
+        <button class="flex items-center text-gray-600 hover:text-[#c1121f] transition-colors" (click)="onCancel()">
+          <span class="material-symbols-outlined mr-1">arrow_back</span>
+          <span>Back to News List</span>
+        </button>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button (click)="saveDraft()"
+                class="flex items-center bg-white border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition-colors">
+          <span class="material-symbols-outlined mr-2 text-gray-600">save_as</span>
+          <span>Save Draft</span>
+        </button>
+        <button (click)="preview()"
+                class="flex items-center bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-colors">
+          <span class="material-symbols-outlined mr-2">preview</span>
+          <span>Preview</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-4 right-4 md:hidden">
+    <button
+      class="flex items-center justify-center w-12 h-12 bg-[#c1121f] text-white rounded-full shadow-lg hover:bg-[#780000] transition-colors duration-300 transform hover:scale-110">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</main>
