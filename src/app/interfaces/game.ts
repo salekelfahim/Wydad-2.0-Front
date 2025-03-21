@@ -12,6 +12,6 @@ export interface Game {
 export enum Competition {
   BOTOLA_PRO = 'BOTOLA_PRO',
   THRONE_CUP = 'THRONE_CUP',
-  CAF_SUPER_CUP = 'CAF SUPER_CUP',
-  CLUB_WORLD_CUP = 'CLUB WORLD_CUP'
+  CAF_SUPER_CUP = 'CAF_SUPER_CUP',
+  CLUB_WORLD_CUP = 'CLUB_WORLD_CUP'
 }

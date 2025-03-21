@@ -20,4 +20,15 @@ export class NavbarLoggedComponent {
       window.location.reload();
     });
   }
+
+  isActive(route: string): boolean {
+    return this.router.url === route
+  }
+
+  closeDropdown(event: Event): void {
+    const detailsElement = (event.target as HTMLElement).closest("details")
+    if (detailsElement) {
+      detailsElement.open = false
+    }
+  }
 }

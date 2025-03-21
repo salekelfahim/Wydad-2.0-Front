@@ -18,6 +18,7 @@ export class AddPlayerComponent implements OnInit {
   playerForm: FormGroup;
   selectedFile: File | null = null;
   isSubmitting = false;
+  imagePreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,12 @@ export class AddPlayerComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -69,7 +76,7 @@ export class AddPlayerComponent implements OnInit {
           title: 'Success!',
           text: 'Player added successfully',
           icon: 'success',
-          timer: 3000,
+          timer: 2000,
           timerProgressBar: true,
           showConfirmButton: false
         });

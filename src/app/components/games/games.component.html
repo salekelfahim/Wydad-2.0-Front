@@ -1,0 +1,440 @@
+<main class="flex-1 overflow-y-auto bg-gray-100">
+  <!-- Hero Section -->
+  <div class="relative bg-gradient-to-r from-red-700 to-red-900 h-64 md:h-80 overflow-hidden">
+    <div
+      class="">
+    </div>
+    <div class="container mx-auto px-4 h-full flex flex-col justify-center">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+        <div class="text-center md:text-right">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+            alt="Wydad AC"
+            class="h-20 md:h-28 w-auto mx-auto md:mx-0 transform hover:scale-110 transition-all duration-300" />
+          <h3 class="text-white text-xl font-bold mt-2">Wydad AC</h3>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 text-white text-sm font-semibold">
+            Upcoming Matches
+          </div>
+          <div class="text-white text-4xl font-bold my-4">GAMES</div>
+          <div class="text-white font-medium">
+            <div class="flex items-center">
+              <span class="material-symbols-outlined mr-2">location_on</span>
+              Official Wydad AC Ticketing
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Competition Filter -->
+        <div class="flex flex-wrap gap-2">
+          <button
+            (click)="changeCompetitionFilter('all')"
+            [class.bg-gray-200]="competitionFilter !== 'all'"
+            [class.text-gray-700]="competitionFilter !== 'all'"
+            [class.bg-[#c1121f]]="competitionFilter === 'all'"
+            [class.text-white]="competitionFilter === 'all'"
+            class="px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            All Matches
+          </button>
+          <button
+            *ngFor="let comp of ['BOTOLA_PRO', 'THRONE_CUP', 'CAF_SUPER_CUP', 'CLUB_WORLD_CUP']"
+            (click)="changeCompetitionFilter(comp)"
+            [class.bg-gray-200]="competitionFilter !== comp"
+            [class.text-gray-700]="competitionFilter !== comp"
+            [class.bg-[#c1121f]]="competitionFilter === comp"
+            [class.text-white]="competitionFilter === comp"
+            class="px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            {{ competitionNames[comp] }}
+          </button>
+        </div>
+
+        <!-- Venue Filter -->
+        <div class="flex flex-wrap gap-2">
+          <button
+            (click)="changeVenueFilter('home')"
+            [class.bg-gray-200]="venueFilter !== 'home'"
+            [class.text-gray-700]="venueFilter !== 'home'"
+            [class.bg-[#c1121f]]="venueFilter === 'home'"
+            [class.text-white]="venueFilter === 'home'"
+            class="px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            Home
+          </button>
+          <button
+            (click)="changeVenueFilter('away')"
+            [class.bg-gray-200]="venueFilter !== 'away'"
+            [class.text-gray-700]="venueFilter !== 'away'"
+            [class.bg-[#c1121f]]="venueFilter === 'away'"
+            [class.text-white]="venueFilter === 'away'"
+            class="px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            Away
+          </button>
+          <button
+            (click)="changeVenueFilter('all')"
+            [class.bg-gray-200]="venueFilter !== 'all'"
+            [class.text-gray-700]="venueFilter !== 'all'"
+            [class.bg-[#c1121f]]="venueFilter === 'all'"
+            [class.text-white]="venueFilter === 'all'"
+            class="px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            All Venues
+          </button>
+        </div>
+
+        <!-- Time Filter -->
+        <div class="flex flex-wrap gap-2">
+          <details class="relative">
+            <summary
+              class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer flex items-center list-none">
+              <span class="material-symbols-outlined mr-1 text-sm">calendar_today</span>
+              {{ timeFilter === 'thisWeek' ? 'This Week' :
+              timeFilter === 'thisMonth' ? 'This Month' :
+                timeFilter === 'nextMonth' ? 'Next Month' : 'All Time' }}
+              <span class="material-symbols-outlined ml-1 text-sm">expand_more</span>
+            </summary>
+            <div
+              class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-10 border border-gray-200 p-3">
+              <div class="space-y-2">
+                <button
+                  (click)="changeTimeFilter('all')"
+                  class="w-full text-left px-3 py-2 rounded-md"
+                  [class.bg-gray-100]="timeFilter === 'all'"
+                  [class.font-medium]="timeFilter === 'all'"
+                  [class.hover:bg-gray-100]="timeFilter !== 'all'">
+                  All Time
+                </button>
+                <button
+                  (click)="changeTimeFilter('thisWeek')"
+                  class="w-full text-left px-3 py-2 rounded-md"
+                  [class.bg-gray-100]="timeFilter === 'thisWeek'"
+                  [class.font-medium]="timeFilter === 'thisWeek'"
+                  [class.hover:bg-gray-100]="timeFilter !== 'thisWeek'">
+                  This Week
+                </button>
+                <button
+                  (click)="changeTimeFilter('thisMonth')"
+                  class="w-full text-left px-3 py-2 rounded-md"
+                  [class.bg-gray-100]="timeFilter === 'thisMonth'"
+                  [class.font-medium]="timeFilter === 'thisMonth'"
+                  [class.hover:bg-gray-100]="timeFilter !== 'thisMonth'">
+                  This Month
+                </button>
+                <button
+                  (click)="changeTimeFilter('nextMonth')"
+                  class="w-full text-left px-3 py-2 rounded-md"
+                  [class.bg-gray-100]="timeFilter === 'nextMonth'"
+                  [class.font-medium]="timeFilter === 'nextMonth'"
+                  [class.hover:bg-gray-100]="timeFilter !== 'nextMonth'">
+                  Next Month
+                </button>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games Grid -->
+  <div class="container mx-auto px-4 py-8 m-6">
+    <!-- No Games Found Message -->
+    <div *ngIf="filteredGames.length === 0" class="col-span-1 md:col-span-2 lg:col-span-3 py-12 text-center">
+      <div class="bg-white rounded-xl shadow-md p-8 max-w-lg mx-auto">
+        <span class="material-symbols-outlined text-5xl text-gray-300 mb-4">sports_soccer</span>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">No Matches Found</h3>
+        <p class="text-gray-600 mb-6">
+          There are no matches available with the current filter settings.
+        </p>
+        <button
+          (click)="resetFilters()"
+          class="inline-flex items-center bg-[#c1121f] hover:bg-[#780000] text-white font-bold py-2 px-6 rounded-lg transition-all duration-300">
+          <span class="material-symbols-outlined mr-2">filter_alt_off</span>
+          Reset Filters
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Game Card -->
+      <div
+        *ngFor="let game of displayedGames"
+        class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="relative">
+          <!-- Availability Tag -->
+          <div
+            [class]="getAvailabilityStatus(game).class"
+            class="absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+            {{ getAvailabilityStatus(game).text }}
+          </div>
+
+          <!-- Competition Header -->
+          <div class="bg-gradient-to-r from-[#1E1E1E] to-[#c1121f]/80 text-white p-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs uppercase font-semibold opacity-80">
+                  {{ competitionNames[game.competition] || game.competition }}
+                </div>
+                <div class="text-lg font-bold">
+                  {{ game.competition === 'BOTOLA_PRO' ? 'Matchday' :
+                  game.competition === 'THRONE_CUP' ? 'Cup Match' :
+                    game.competition === 'CAF_SUPER_CUP' ? 'Super Cup' : 'World Cup' }}
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="font-bold text-xl">{{ formatDate(game.date).dayName }}</div>
+                <div class="text-sm">{{ formatDate(game.date).day }} {{ formatDate(game.date).month }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game Details -->
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+                  alt="Wydad AC"
+                  class="h-12 w-auto" />
+                <div>
+                  <div class="font-semibold">Wydad AC</div>
+                  <div class="text-xs text-gray-500 flex items-center">
+                    <span class="material-symbols-outlined text-[14px] mr-1">home</span> Home
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="text-lg font-bold text-gray-800">VS</div>
+                <div class="text-xs text-gray-500">{{ game.time }}</div>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="text-right">
+                  <div class="font-semibold">{{ game.opponent }}</div>
+                  <div class="text-xs text-gray-500 flex items-center justify-end">
+                    <span class="material-symbols-outlined text-[14px] mr-1">flight</span> Away
+                  </div>
+                </div>
+                <img
+                  src="https://www.creativefabrica.com/wp-content/uploads/2023/04/12/Black-and-White-Logo-Football-5-Graphics-67011338-1.jpg"
+                  alt="{{ game.opponent }}"
+                  class="h-12 w-auto" />
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between">
+              <div>
+                <div class="text-sm text-gray-600">Mohammed V Stadium</div>
+                <div class="flex items-center">
+                  <div class="text-sm font-semibold text-gray-800">{{ getTicketPriceRange(game) }}</div>
+                </div>
+              </div>
+              <button
+                [class.pointer-events-none]="!game.tickets || game.tickets.length === 0 || getAvailabilityStatus(game).text === 'Sold Out'"
+                [class.opacity-50]="!game.tickets || game.tickets.length === 0 || getAvailabilityStatus(game).text === 'Sold Out'"
+                (click)="openTicketModal(game)"
+                class="inline-flex items-center bg-[#c1121f] hover:bg-[#780000] text-white font-bold py-2 px-4 rounded-lg transition-all duration-300">
+                <span class="material-symbols-outlined mr-1 text-sm">confirmation_number</span> Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-8" *ngIf="totalPages > 1">
+      <nav class="flex items-center space-x-2">
+        <button
+          (click)="prevPage()"
+          [disabled]="currentPage === 1"
+          [class.opacity-50]="currentPage === 1"
+          class="px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+
+        <ng-container *ngIf="totalPages <= 5">
+          <button
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="goToPage(i + 1)"
+            [class.bg-[#c1121f]]="currentPage === i + 1"
+            [class.text-white]="currentPage === i + 1"
+            [class.bg-gray-200]="currentPage !== i + 1"
+            class="px-3 py-1 rounded-md hover:bg-gray-300">
+            {{ i + 1 }}
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="totalPages > 5">
+          <!-- First page -->
+          <button
+            (click)="goToPage(1)"
+            [class.bg-[#c1121f]]="currentPage === 1"
+            [class.text-white]="currentPage === 1"
+            [class.bg-gray-200]="currentPage !== 1"
+            class="px-3 py-1 rounded-md hover:bg-gray-300">
+            1
+          </button>
+
+          <!-- Ellipsis if needed -->
+          <span *ngIf="currentPage > 3" class="px-2 text-gray-500">...</span>
+
+          <!-- Pages around current -->
+          <ng-container *ngFor="let page of [currentPage - 1, currentPage, currentPage + 1]">
+            <button
+              *ngIf="page > 1 && page < totalPages"
+              (click)="goToPage(page)"
+              [class.bg-[#c1121f]]="currentPage === page"
+              [class.text-white]="currentPage === page"
+              [class.bg-gray-200]="currentPage !== page"
+              class="px-3 py-1 rounded-md hover:bg-gray-300">
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <!-- Ellipsis if needed -->
+          <span *ngIf="currentPage < totalPages - 2" class="px-2 text-gray-500">...</span>
+
+          <!-- Last page -->
+          <button
+            (click)="goToPage(totalPages)"
+            [class.bg-[#c1121f]]="currentPage === totalPages"
+            [class.text-white]="currentPage === totalPages"
+            [class.bg-gray-200]="currentPage !== totalPages"
+            class="px-3 py-1 rounded-md hover:bg-gray-300">
+            {{ totalPages }}
+          </button>
+        </ng-container>
+
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          [class.opacity-50]="currentPage === totalPages"
+          class="px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Ticket Purchase Modal -->
+  <div *ngIf="showTicketModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full animate-fadeIn">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-[#1E1E1E] to-[#c1121f] text-white p-4 rounded-t-xl">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-lg">Purchase Tickets</h3>
+          <button (click)="closeModal()" class="text-white hover:text-gray-200">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Info -->
+      <div class="p-4 border-b border-gray-200">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+              alt="Wydad AC"
+              class="h-8 w-auto" />
+            <span class="font-medium">Wydad AC</span>
+          </div>
+          <span class="font-bold">VS</span>
+          <div class="flex items-center space-x-2">
+            <span class="font-medium">{{ selectedGame?.opponent }}</span>
+            <img
+              src="https://www.creativefabrica.com/wp-content/uploads/2023/04/12/Black-and-White-Logo-Football-5-Graphics-67011338-1.jpg"
+              alt="{{ selectedGame?.opponent }}"
+              class="h-8 w-auto" />
+          </div>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600">
+          <div>{{ formatDate(selectedGame?.date || '').dayName }} {{ formatDate(selectedGame?.date || '').day }} {{ formatDate(selectedGame?.date || '').month }}</div>
+          <div>{{ selectedGame?.time }}</div>
+        </div>
+      </div>
+
+      <!-- Ticket Selection -->
+      <div class="p-4">
+        <h4 class="font-semibold mb-3">Select Ticket Category</h4>
+
+        <!-- No Tickets Available Message -->
+        <div *ngIf="selectedGame && (!selectedGame.tickets || selectedGame.tickets.length === 0)" class="text-center py-4">
+          <p class="text-gray-500">No tickets available for this match.</p>
+        </div>
+
+        <!-- Ticket Categories -->
+        <div *ngIf="selectedGame && selectedGame.tickets && selectedGame.tickets.length > 0">
+          <div class="space-y-3">
+            <div *ngFor="let ticket of selectedGame?.tickets" class="border border-gray-200 rounded-lg p-3 hover:border-[#c1121f] transition-colors"
+                 [class.border-[#c1121f]]="selectedTicket?.id === ticket.id"
+                 [class.bg-gray-50]="selectedTicket?.id === ticket.id"
+                 (click)="selectTicket(ticket)">
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="font-medium">{{ ticket.category }}</div>
+                  <div class="text-sm text-gray-600">{{ ticket.quantity }} tickets available</div>
+                </div>
+                <div class="text-lg font-bold">{{ ticket.price }} MAD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantity Selection -->
+          <div class="mt-6">
+            <label for="ticketQuantity" class="block text-sm font-medium text-gray-700 mb-1">Quantity (max 3)</label>
+            <div class="flex items-center">
+              <button
+                (click)="decrementQuantity()"
+                [disabled]="ticketQuantity <= 1"
+                [class.opacity-50]="ticketQuantity <= 1"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-l-md">
+                <span class="material-symbols-outlined text-sm">remove</span>
+              </button>
+              <input
+                type="number"
+                id="ticketQuantity"
+                min="1"
+                max="3"
+                [(ngModel)]="ticketQuantity"
+                (input)="validateQuantity()"
+                class="w-16 text-center border-y border-gray-200 py-1 focus:outline-none" />
+              <button
+                (click)="incrementQuantity()"
+                [disabled]="ticketQuantity >= 3 || (selectedTicket && ticketQuantity >= selectedTicket.quantity)"
+                [class.opacity-50]="ticketQuantity >= 3 || (selectedTicket && ticketQuantity >= selectedTicket.quantity)"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-r-md">
+                <span class="material-symbols-outlined text-sm">add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Total -->
+          <div class="mt-6 flex justify-between items-center">
+            <div class="text-sm font-medium text-gray-700">Total:</div>
+            <div class="text-xl font-bold">{{ calculateTotal() }} MAD</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end space-x-3">
+        <button (click)="closeModal()" class="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition-colors">
+          Cancel
+        </button>
+        <button
+          (click)="addToCart()"
+          [disabled]="!selectedTicket || ticketQuantity < 1"
+          [class.opacity-50]="!selectedTicket || ticketQuantity < 1"
+          class="px-4 py-2 bg-[#c1121f] hover:bg-[#780000] text-white font-medium rounded-lg transition-colors flex items-center">
+          <span class="material-symbols-outlined mr-1 text-sm">shopping_cart</span>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+</main>

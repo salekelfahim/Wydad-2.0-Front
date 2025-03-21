@@ -69,7 +69,7 @@ export class AddGameComponent implements OnInit {
         });
 
         setTimeout(() => {
-          this.router.navigate(['/players-list']);
+          this.router.navigate(['/games-list']);
         }, 3000);
       },
       error: (error) => {
@@ -86,6 +86,6 @@ export class AddGameComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/players-list']);
+    this.router.navigate(['/games-list']);
   }
 }

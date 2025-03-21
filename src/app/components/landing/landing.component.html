@@ -1,7 +1,7 @@
 <div id="landing" class="w-full flex">
   <div class="w-full font-sans">
     <section class="relative h-[400px] sm:h-[600px] bg-cover bg-center"
-             style="background-image:url(https://scontent.fcmn1-3.fna.fbcdn.net/v/t39.30808-6/288504886_5590151114380210_3040251030609951825_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFkcP4daaB-gyVnOPHgAtyA9izF43cSmZL2LMXjdxKZkvk4bw2rEYMdI1sWKRab3rYsytE3OkNcDlX5KcyAVc6i&_nc_ohc=ZsUD7PIVNbMQ7kNvgHGc3OO&_nc_oc=Adin1wvwB-d7CyZI8anXBNgvIt6FYA7XIq-ioQrcdWYIj9BQi7xC34SXeUb1V7NCz24&_nc_zt=23&_nc_ht=scontent.fcmn1-3.fna&_nc_gid=Aj9Ot8d33i1GfxUCC8wy6_T&oh=00_AYH0fCA257z45L4EmV1NMKB_rWua0NqfH6hQNlhpv1opzA&oe=67D77416)">
+             style="background-image:url(https://scontent.fcmn1-3.fna.fbcdn.net/v/t39.30808-6/288504886_5590151114380210_3040251030609951825_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFkcP4daaB-gyVnOPHgAtyA9izF43cSmZL2LMXjdxKZkvk4bw2rEYMdI1sWKRab3rYsytE3OkNcDlX5KcyAVc6i&_nc_ohc=hXjN8KuOTPcQ7kNvgHeC-4O&_nc_oc=AdjmqV09um9yLQYbjj0i-1VgwHwnHGRS9297zxUJw3p1lcwySKeW0x7y6mVOOXvfjK4&_nc_zt=23&_nc_ht=scontent.fcmn1-3.fna&_nc_gid=yKzbCShCIWSxQdN1IYTAUQ&oh=00_AYGIhogOkqmD1T5OVIgF6qojKLmcmM9KB09s0GrtD1j98Q&oe=67DE0B96)">
       <div class="absolute inset-0 bg-black bg-opacity-50">
         <div class="container mx-auto h-full flex flex-col items-center justify-center text-white px-4"> <img
           src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png" alt="Wydad AC Logo"
@@ -97,14 +97,14 @@
           <div *ngFor="let product of products" class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
             <img [src]="getImageUrl(product.picture)"
                  [alt]="product.name"
-                 class="w-50% h-50% rounded-lg object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                 class="w-full h-64 rounded-lg object-cover object-center transition-transform duration-700 group-hover:scale-105" />
             <div class="p-4">
               <h3 class="text-lg font-bold">{{ product.name }}</h3>
               <p class="text-sm text-gray-600">{{ product.type }} | Size: {{ product.size }}</p>
               <p class="text-[#c1121f] font-bold mt-2">${{ product.price.toFixed(2) }}</p>
-              <button style="background-color: #780000"
-                class="w-full bg-[#c1121f] text-white py-2 rounded mt-4 hover:bg-[#780000] transition-colors">Add to
-                Cart</button>
+              <!--              <button style="background-color: #780000"-->
+              <!--                class="w-full bg-[#c1121f] text-white py-2 rounded mt-4 hover:bg-[#780000] transition-colors">Add to-->
+              <!--                Cart</button>-->
             </div>
           </div>
         </div>
@@ -148,11 +148,11 @@
               </div>
             </div>
             <div class="text-center mb-2 text-sm sm:text-base">Mohammed V Stadium</div>
-            <div class="text-center mb-4 text-sm font-bold text-[#c1121f]">{{ game.competition }}</div>
-            <button style="background-color: #780000" class="w-full bg-[#c1121f] text-white py-2 rounded hover:bg-[#780000] transition-colors">Buy Tickets</button>
+            <div class="text-center mb-4 text-sm font-bold text-[#c1121f]">{{ formatCompetition(game.competition) }}</div>            <!--            <button style="background-color: #780000" class="w-full bg-[#c1121f] text-white py-2 rounded hover:bg-[#780000] transition-colors">Buy Tickets</button>-->
           </div>
         </div>
       </div>
     </section>
   </div>
 </div>
+

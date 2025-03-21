@@ -19,11 +19,18 @@ import { Player } from "../../interfaces/player";
 export class PlayersComponent implements OnInit {
   players: Player[] = [];
   filteredPlayers: Player[] = [];
+  displayedPlayers: Player[] = [];
   searchTerm: string = '';
   selectedPosition: string = '';
   selectedNationality: string = '';
   sortCriteria: string = 'Name (A-Z)';
   availableNationalities: string[] = [];
+
+  // Pagination properties
+  currentPage: number = 1;
+  playersPerPage: number = 12;
+  totalPages: number = 1;
+  paginationRange: number[] = [];
 
   // Track dropdown states
   positionDropdownOpen: boolean = false;
@@ -78,12 +85,14 @@ export class PlayersComponent implements OnInit {
   filterByPosition(position: string): void {
     this.selectedPosition = position;
     this.positionDropdownOpen = false;
+    this.currentPage = 1; // Reset to first page when filter changes
     this.applyFilters();
   }
 
   filterByNationality(nationality: string): void {
     this.selectedNationality = nationality;
     this.nationalityDropdownOpen = false;
+    this.currentPage = 1; // Reset to first page when filter changes
     this.applyFilters();
   }
 
@@ -166,9 +175,59 @@ export class PlayersComponent implements OnInit {
     }
 
     this.filteredPlayers = result;
+    this.updatePagination();
+  }
+
+  updatePagination(): void {
+    // Calculate total pages
+    this.totalPages = Math.ceil(this.filteredPlayers.length / this.playersPerPage);
+
+    // Ensure current page is valid
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages || 1;
+    }
+
+    // Calculate pagination range (show up to 5 page numbers)
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
+
+    // Adjust startPage if we're near the end
+    if (endPage - startPage + 1 < maxPagesToShow && startPage > 1) {
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+    // Create page number array
+    this.paginationRange = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+
+    // Get current page of players
+    const startIndex = (this.currentPage - 1) * this.playersPerPage;
+    this.displayedPlayers = this.filteredPlayers.slice(startIndex, startIndex + this.playersPerPage);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
   }
 
   searchPlayers(): void {
+    this.currentPage = 1; // Reset to first page when search changes
     this.applyFilters();
   }
 
@@ -209,4 +268,6 @@ export class PlayersComponent implements OnInit {
     console.error(`Failed to load image for player ${player.firstName} ${player.lastName}`);
     event.target.src = 'https://cdn-icons-png.flaticon.com/256/5281/5281744.png';
   }
+
+    protected readonly Math = Math;
 }

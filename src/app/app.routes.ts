@@ -18,6 +18,10 @@ import { GamesListComponent } from "./components/dashboard/games-list/games-list
 import { NewsListComponent } from "./components/dashboard/news-list/news-list.component";
 import { AddNewsComponent } from "./components/dashboard/add-news/add-news.component";
 import {PlayersComponent} from "./components/players/players.component";
+import {NewsComponent} from "./components/news/news.component";
+import {NewsDetailsComponent} from "./components/news-details/news-details.component";
+import {CartComponent} from "./components/cart/cart.component";
+import {GamesComponent} from "./components/games/games.component";
 
 export const routes: Routes = [
   {
@@ -41,7 +45,7 @@ export const routes: Routes = [
     title: 'WAC - Products',
   },
   {
-    path: 'details',
+    path: 'product-details/:id',
     component: ProductDetailsComponent,
     title: 'WAC - Product Details',
   },
@@ -49,6 +53,26 @@ export const routes: Routes = [
     path: 'players',
     component: PlayersComponent,
     title: 'WAC - Players',
+  },
+  {
+    path: 'news',
+    component: NewsComponent,
+    title: 'WAC - News',
+  },
+  {
+    path: 'news-details/:id',
+    component: NewsDetailsComponent,
+    title: 'WAC - News Details',
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'WAC - Cart',
+  },
+  {
+    path: 'games',
+    component: GamesComponent,
+    title: 'WAC - Games',
   },
   {
     path: 'dashboard',

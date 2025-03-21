@@ -1,145 +1,164 @@
 <main class="flex-1 overflow-y-auto bg-gray-100 p-4">
-  <div class="max-w-7xl mx-auto">
-    <div class="bg-white rounded-lg shadow-sm p-4 mb-6 animate-fadeIn">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="flex items-center w-full md:w-auto"> <a href="#"
-                                                            class="inline-flex items-center px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors duration-200 shadow-sm hover:shadow-md transform hover:scale-105 transition-all w-full md:w-auto justify-center md:justify-start">
-          <span class="material-symbols-outlined mr-2">add</span> Add Product </a> </div>
-        <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-          <div class="relative w-full sm:w-64"> <input type="text" placeholder="Search products..."
-                                                       class="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"> <span
-              class="material-symbols-outlined">search</span> </span> </div>
-          <details class="relative w-full sm:w-auto">
-            <summary
-              class="flex items-center justify-between w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer list-none">
-                        <span class="flex items-center text-gray-700"> <span
-                          class="material-symbols-outlined mr-2">filter_list</span> Filters </span> <span
-              class="material-symbols-outlined ml-2 text-gray-500">expand_more</span> </summary>
-            <div class="absolute right-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg p-4 z-50">
-              <h4 class="font-medium text-gray-800 mb-3">Filter Products</h4>
-              <div class="space-y-4">
-                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Product Type</label> <select
-                  class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200">
-                  <option value="">All Types</option>
-                  <option value="jersey">Jersey</option>
-                  <option value="training">Training Wear</option>
-                  <option value="accessories">Accessories</option>
-                  <option value="footwear">Footwear</option>
-                </select> </div>
-                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Size</label> <select
-                  class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200">
-                  <option value="">All Sizes</option>
-                  <option value="xs">XS</option>
-                  <option value="s">S</option>
-                  <option value="m">M</option>
-                  <option value="l">L</option>
-                  <option value="xl">XL</option>
-                  <option value="xxl">XXL</option>
-                </select> </div>
-                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
-                  <div class="flex items-center space-x-2"> <input type="number" placeholder="Min"
-                                                                   class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
-                    <span class="text-gray-500">-</span> <input type="number" placeholder="Max"
-                                                                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
-                  </div>
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 animate-fadeIn">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center w-full md:w-auto">
+                    <a routerLink="/add-product" class="inline-flex items-center px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors duration-200 shadow-sm hover:shadow-md transform hover:scale-105 transition-all w-full md:w-auto justify-center md:justify-start">
+                        <span class="material-symbols-outlined mr-2">add</span> Add Product
+                    </a>
                 </div>
-                <div class="flex items-center justify-between pt-2"> <button
-                  class="text-gray-600 hover:text-gray-800 transition-colors text-sm"> Reset Filters
-                </button> <button
-                  class="px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors text-sm">
-                  Apply Filters </button> </div>
-              </div>
-            </div>
-          </details>
-        </div>
-      </div>
-    </div>
-    <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 animate-fadeIn">
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead>
-          <tr class="bg-gray-50 border-b border-gray-200">
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Photo</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
-            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200" *ngIf="!loading; else loadingTemplate">
-          <ng-container *ngIf="products.length > 0; else noProductsTemplate">
-            <tr *ngFor="let product of products; let i = index"
-                class="hover:bg-gray-50 transition-colors animate-fadeIn"
-                [class.bg-gray-50]="i % 2 !== 0"
-                [class.hover:bg-gray-100]="i % 2 !== 0"
-                [style.animation-delay]="(i * 0.1) + 's'">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="w-12 h-12 rounded-md overflow-hidden bg-gray-100">
-                  <img [src]="getImageUrl(product.picture)"
-                       [alt]="product.name"
-                       class="w-full h-full object-cover object-center" />
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="font-medium text-gray-900">{{ product.name }}</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.type }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.quantity }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.price }} MAD</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 py-1 text-xs rounded-full"
-                    [class.bg-gray-100]="i % 2 === 0"
-                    [class.bg-gray-200]="i % 2 !== 0"
-                    class="text-gray-800">
-                {{ getSizeDisplayText(product.size) }}
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" placeholder="Search products..."
+                               [(ngModel)]="searchTerm"
+                               (input)="search()"
+                               class="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <span class="material-symbols-outlined">search</span>
+            </span>
+                    </div>
+                    <details class="relative w-full sm:w-auto">
+                        <summary class="flex items-center justify-between w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer list-none">
+              <span class="flex items-center text-gray-700">
+                <span class="material-symbols-outlined mr-2">filter_list</span> Filters
               </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-center">
-                <div class="flex items-center justify-center space-x-2">
-                  <button class="p-1 rounded-full hover:bg-gray-100 text-blue-600 hover:text-blue-800 transition-colors"
-                          [routerLink]="['/products', product.id]">
-                    <span class="material-symbols-outlined text-[18px]">visibility</span>
-                  </button>
-                  <button class="p-1 rounded-full hover:bg-gray-100 text-amber-600 hover:text-amber-800 transition-colors"
-                          [routerLink]="['/products/edit', product.id]">
-                    <span class="material-symbols-outlined text-[18px]">edit</span>
-                  </button>
-                  <button class="p-1 rounded-full hover:bg-gray-100 text-red-600 hover:text-red-800 transition-colors"
-                          (click)="deleteProduct(product.id!)">
-                    <span class="material-symbols-outlined text-[18px]">delete</span>
-                  </button>
+                            <span class="material-symbols-outlined ml-2 text-gray-500">expand_more</span>
+                        </summary>
+                        <div class="absolute right-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg p-4 z-50">
+                            <h4 class="font-medium text-gray-800 mb-3">Filter Products</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Product Type</label>
+                                    <select [(ngModel)]="filterType" (change)="applyFilters()"
+                                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200">
+                                        <option value="">All Types</option>
+                                        <option value="jersey">Jersey</option>
+                                        <option value="training">Training Wear</option>
+                                        <option value="accessories">Accessories</option>
+                                        <option value="footwear">Footwear</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Size</label>
+                                    <select [(ngModel)]="filterSize" (change)="applyFilters()"
+                                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200">
+                                        <option value="">All Sizes</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="One_Size">One Size</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+                                    <div class="flex items-center space-x-2">
+                                        <input type="number" placeholder="Min" [(ngModel)]="filterPriceMin" (input)="applyFilters()"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
+                                        <span class="text-gray-500">-</span>
+                                        <input type="number" placeholder="Max" [(ngModel)]="filterPriceMax" (input)="applyFilters()"
+                                               class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200" />
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2">
+                                    <button (click)="resetFilters()" class="text-gray-600 hover:text-gray-800 transition-colors text-sm">Reset Filters</button>
+                                    <button (click)="applyFilters()" class="px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors text-sm">Apply Filters</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
                 </div>
-              </td>
-            </tr>
-          </ng-container>
-          </tbody>
-        </table>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 animate-fadeIn">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                    <tr class="bg-gray-50 border-b border-gray-200">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Photo</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200" *ngIf="!loading; else loadingTemplate">
+                    <ng-container *ngIf="displayedProducts.length > 0; else noProductsTemplate">
+                        <tr *ngFor="let product of displayedProducts; let i = index"
+                            class="hover:bg-gray-50 transition-colors animate-fadeIn"
+                            [class.bg-gray-50]="i % 2 !== 0"
+                            [class.hover:bg-gray-100]="i % 2 !== 0"
+                            [style.animation-delay]="(i * 0.1) + 's'">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="w-12 h-12 rounded-md overflow-hidden bg-gray-100">
+                                    <img [src]="getImageUrl(product.picture)"
+                                         [alt]="product.name"
+                                         class="w-full h-full object-cover object-center" />
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-medium text-gray-900">{{ product.name }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.type }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.quantity }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ product.price }} MAD</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 py-1 text-xs rounded-full"
+                        [class.bg-gray-100]="i % 2 === 0"
+                        [class.bg-gray-200]="i % 2 !== 0"
+                        class="text-gray-800">
+                    {{ getSizeDisplayText(product.size) }}
+                  </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <button class="p-1 rounded-full hover:bg-gray-100 text-red-600 hover:text-red-800 transition-colors"
+                                            (click)="deleteProduct(product.id!)">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
 
-        <ng-template #loadingTemplate>
-          <tbody>
-          <tr>
-            <td colspan="7" class="px-6 py-10 text-center text-gray-500">
-              <div class="flex flex-col items-center justify-center">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-                <p>Loading products...</p>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </ng-template>
+                <ng-template #loadingTemplate>
+                    <tbody>
+                    <tr>
+                        <td colspan="7" class="px-6 py-10 text-center text-gray-500">
+                            <div class="flex flex-col items-center justify-center">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+                                <p>Loading products...</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </ng-template>
 
-        <ng-template #noProductsTemplate>
-          <tbody>
-          <tr>
-            <td colspan="7" class="px-6 py-10 text-center text-gray-500">
-              No products found. Add some products to get started.
-            </td>
-          </tr>
-          </tbody>
-        </ng-template>
-      </div>
-    </div>  </div>
+                <ng-template #noProductsTemplate>
+                    <tbody>
+                    <tr>
+                        <td colspan="7" class="px-6 py-10 text-center text-gray-500">
+                            No products found. Add some products to get started.
+                        </td>
+                    </tr>
+                    </tbody>
+                </ng-template>
+            </div>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+            <button (click)="prevPage()" [disabled]="currentPage === 1"
+                    class="px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors">
+                Previous
+            </button>
+            <span class="text-gray-700">Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages"
+                    class="px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors">
+                Next
+            </button>
+        </div>
+    </div>
 </main>

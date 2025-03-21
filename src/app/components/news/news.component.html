@@ -1,0 +1,147 @@
+<div class="relative bg-gradient-to-r from-red-700 to-red-900 h-64 md:h-80 overflow-hidden">
+  <div class="">
+  </div>
+  <div class="container mx-auto px-4 h-full flex flex-col justify-center">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+      <div class="text-center md:text-right">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
+          alt="Wydad AC"
+          class="h-20 md:h-28 w-auto mx-auto md:mx-0 transform hover:scale-110 transition-all duration-300" />
+        <h3 class="text-white text-xl font-bold mt-2">Wydad AC</h3>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 text-white text-sm font-semibold">
+          Latest News
+        </div>
+        <div class="text-white text-4xl font-bold my-4">WYDAD AC NEWS</div>
+        <div class="text-white font-medium">
+          <div class="flex items-center">
+            <span class="material-symbols-outlined mr-2">article</span>
+            Stay updated with the latest club news and match reports
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mx-auto px-4 mt-6 mb-8">
+  <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search news by title..."
+          class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f]"
+          [(ngModel)]="searchTerm"
+          (input)="applyFilters()"
+        />
+        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <i class="material-icons">search</i>
+        </span>
+      </div>
+      <div class="relative">
+        <div class="flex justify-end">
+          <select
+            class="px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f]"
+            [(ngModel)]="sortOrder"
+            (change)="applyFilters()"
+          >
+            <option value="newest">Sort By: Newest First</option>
+            <option value="oldest">Sort By: Oldest First</option>
+            <option value="titleAsc">Sort By: Title (A-Z)</option>
+            <option value="titleDesc">Sort By: Title (Z-A)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto px-4 mb-10">
+  <div *ngIf="loading" class="flex justify-center items-center py-20">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c1121f]"></div>
+  </div>
+
+  <div *ngIf="!loading && filteredNews.length === 0" class="text-center py-20">
+    <h3 class="text-xl font-medium text-gray-600">No news articles found</h3>
+    <p class="text-gray-500 mt-2">Try changing your search criteria</p>
+  </div>
+
+  <div *ngIf="!loading && filteredNews.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      *ngFor="let news of paginatedNews"
+      class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group mt-4"
+    >
+      <div class="relative overflow-hidden h-48">
+        <img [src]="getImageUrl(news.cover)" [alt]="news.title"
+             class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#c1121f]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <button
+            class="w-full bg-white hover:bg-gray-100 text-[#c1121f] font-bold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center"
+            (click)="viewNewsDetails(news.id)"
+          >
+            <span class="material-icons mr-2">visibility</span> Read More
+          </button>
+        </div>
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-bold mb-2 group-hover:text-[#c1121f] transition-colors">{{ news.title }}</h3>
+        <p class="text-gray-600 text-sm mb-3 line-clamp-3">{{ news.content }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="mt-10 flex flex-col sm:flex-row justify-between items-center" *ngIf="filteredNews.length > 0">
+    <div class="text-sm text-gray-500 mb-4 sm:mb-0">
+      Showing {{ (currentPage - 1) * itemsPerPage + 1 }}-{{ Math.min(currentPage * itemsPerPage, filteredNews.length) }} of {{ filteredNews.length }} articles
+    </div>
+    <div class="flex items-center justify-center">
+      <div class="flex space-x-1">
+        <button
+          class="px-3 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors text-sm flex items-center"
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+          [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === 1}"
+        >
+          <span class="material-icons text-sm mr-1">chevron_left</span> Previous
+        </button>
+
+        <ng-container *ngFor="let page of getPaginationArray()">
+          <button
+            class="w-10 h-10 rounded-md font-medium flex items-center justify-center"
+            [ngClass]="page === currentPage ? 'bg-[#c1121f] text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors'"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        </ng-container>
+
+        <button
+          class="px-3 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors text-sm flex items-center"
+          [disabled]="currentPage === totalPages"
+          (click)="goToPage(currentPage + 1)"
+          [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === totalPages}"
+        >
+          Next <span class="material-icons text-sm ml-1">chevron_right</span>
+        </button>
+      </div>
+    </div>
+    <div class="mt-4 sm:mt-0 flex items-center">
+      <span class="text-sm text-gray-600 mr-2">Items per page:</span>
+      <select
+        class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm text-gray-700 cursor-pointer"
+        [(ngModel)]="itemsPerPage"
+        (change)="changeItemsPerPage()"
+      >
+        <option [value]="9">9</option>
+        <option [value]="12">12</option>
+        <option [value]="18">18</option>
+      </select>
+    </div>
+  </div>
+</div>

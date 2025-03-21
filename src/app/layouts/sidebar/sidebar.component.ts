@@ -15,8 +15,8 @@ import { CommonModule } from '@angular/common';
 })
 export class SidebarComponent implements OnInit {
   currentRoute: string = '';
-
   openSection: string | null = 'dashboard';
+  collapsed: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -50,6 +50,10 @@ export class SidebarComponent implements OnInit {
 
   toggleSection(section: string) {
     this.openSection = this.openSection === section ? null : section;
+  }
+
+  toggleSidebar() {
+    this.collapsed = !this.collapsed;
   }
 
   isActive(route: string): boolean {

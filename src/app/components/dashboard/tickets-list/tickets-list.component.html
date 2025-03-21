@@ -17,10 +17,8 @@
                 <div> <label class="block text-sm font-medium text-gray-700 mb-1">Category</label> <select
                   class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]">
                   <option value="">All Categories</option>
-                  <option value="vip">VIP</option>
-                  <option value="premium">Premium</option>
-                  <option value="standard">Standard</option>
-                  <option value="economy">Economy</option>
+                  <option value="VIP">VIP</option>
+                  <option value="NORMAL">NORMAL</option>
                 </select> </div>
                 <div> <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
                   <div class="grid grid-cols-2 gap-2"> <input type="number" placeholder="Min"
@@ -29,13 +27,6 @@
                            class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]" />
                   </div>
                 </div>
-                <div> <label class="block text-sm font-medium text-gray-700 mb-1">Game</label> <select
-                  class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-[#c1121f] focus:border-[#c1121f]">
-                  <option value="">All Games</option>
-                  <option value="game1">vs Raja CA (Nov 15, 2023)</option>
-                  <option value="game2">vs FAR Rabat (Nov 22, 2023)</option>
-                  <option value="game3">vs RS Berkane (Nov 29, 2023)</option>
-                </select> </div>
                 <div class="flex justify-end gap-2 pt-2 border-t border-gray-200"> <button
                   class="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors hover:scale-105 transform duration-150">Reset</button>
                   <button
@@ -65,14 +56,14 @@
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let ticket of tickets" class="hover:bg-gray-50 transition-colors duration-150 animate-fadeIn">
+          <tr *ngFor="let ticket of paginatedTickets" class="hover:bg-gray-50 transition-colors duration-150 animate-fadeIn">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10 mr-3">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/1200px-Wydad_AC_crest_%282022%29.svg.png"
                     alt="Wydad AC Logo"
-                   />                </div>
+                  />                </div>
                 <div>
                   <div class="text-sm font-medium text-gray-900">vs {{ ticket.game.opponent }}</div>
                   <div class="text-xs text-gray-500">{{ ticket.game.date | date:'MMM d, y' }} • {{ ticket.game.time }}</div>
@@ -95,21 +86,89 @@
             </td>
             <td class="px-6 py-4 text-center text-sm font-medium">
               <div class="flex justify-center space-x-2">
-<!--                <button class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200">-->
-<!--                  <span class="material-symbols-outlined transform hover:scale-110 transition-transform">edit</span>-->
-<!--                </button>-->
                 <button
                   class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200"
                   (click)="ticket.id && deleteTicket(ticket.id)">
                   <span class="material-symbols-outlined transform hover:scale-110 transition-transform">delete</span>
                 </button>
-<!--                <button class="text-gray-600 hover:text-[#c1121f] transition-colors duration-200">-->
-<!--                  <span class="material-symbols-outlined transform hover:scale-110 transition-transform">visibility</span>-->
-<!--                </button>-->
               </div>
             </td>
-          </tr>          </tbody>
+          </tr>
+          </tbody>
         </table>
+      </div>
+
+      <!-- No tickets message -->
+      <div *ngIf="paginatedTickets.length === 0" class="py-8 text-center text-gray-500">
+        <div class="material-symbols-outlined text-4xl mb-2">inventory_2</div>
+        <p class="text-lg font-medium">No tickets found</p>
+        <p class="text-sm">Try changing your search or filter criteria</p>
+      </div>
+
+      <!-- Pagination controls -->
+      <div class="px-6 py-4 flex items-center justify-between border-t border-gray-200">
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing
+              <span class="font-medium">{{ (currentPage - 1) * pageSize + 1 }}</span>
+              to
+              <span class="font-medium">{{ Math.min(currentPage * pageSize, tickets.length) }}</span>
+              of
+              <span class="font-medium">{{ tickets.length }}</span>
+              results
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <button
+                [disabled]="currentPage === 1"
+                (click)="changePage(currentPage - 1)"
+                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="sr-only">Previous</span>
+                <span class="material-symbols-outlined text-sm">chevron_left</span>
+              </button>
+
+              <ng-container *ngFor="let page of getPageNumbers()">
+                <button
+                  (click)="changePage(page)"
+                  [class]="page === currentPage
+                    ? 'relative inline-flex items-center px-4 py-2 border border-[#c1121f] bg-[#c1121f] text-sm font-medium text-white'
+                    : 'relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50'"
+                >
+                  {{ page }}
+                </button>
+              </ng-container>
+
+              <button
+                [disabled]="currentPage === totalPages"
+                (click)="changePage(currentPage + 1)"
+                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="sr-only">Next</span>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Mobile pagination -->
+        <div class="flex items-center justify-between w-full sm:hidden">
+          <button
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)"
+            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Previous
+          </button>
+          <span class="text-sm text-gray-700">
+            Page {{ currentPage }} of {{ totalPages }}
+          </span>
+          <button
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)"
+            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+          </button>
+        </div>
       </div>
     </div>
   </div>

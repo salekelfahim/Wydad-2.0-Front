@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ticket } from '../interfaces/ticket';
+import {Category, Ticket} from '../interfaces/ticket';
 import {AbstractControl, ValidationErrors} from "@angular/forms";
 
 @Injectable({
@@ -13,15 +13,15 @@ export class TicketService {
   constructor(private http: HttpClient) {}
 
   createTicket(ticket: {
-    price: any;
-    quantity: any;
-    category: any;
-    game: { id: (string | ((control: AbstractControl) => (ValidationErrors | null)))[] }
+    price: number;
+    quantity: number;
+    category: Category;
+    game: { id: number }
   }): Observable<Ticket> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    console.log('Sending Ticket:', ticket); // Log the ticket being sent
+    console.log('Sending Ticket:', ticket);
     return this.http.post<Ticket>(this.apiUrl, ticket, { headers });
   }
 

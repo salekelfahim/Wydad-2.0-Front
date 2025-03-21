@@ -4,7 +4,13 @@ import { NavbarLoggedComponent } from "../../layouts/navbar-logged/navbar-logged
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { Product, Size } from '../../interfaces/product';
+import { Router } from '@angular/router';
+
+// Import SweetAlert
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +30,9 @@ export class ProductsComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  // Filter properties
+  isLoggedIn: boolean = false;
+  userId: number | null = null;
+
   sizes: { value: Size, checked: boolean }[] = [
     { value: Size.S, checked: false },
     { value: Size.M, checked: false },
@@ -38,20 +46,33 @@ export class ProductsComponent implements OnInit {
   selectedType: string = 'all';
   availableTypes: string[] = [];
 
-  // For displaying total count
   get productCount(): number {
     return this.filteredProducts.length;
   }
 
-  // Access Size enum in template
   get sizeEnum() {
     return Size;
   }
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
+
+    this.authService.authState$.subscribe(state => {
+      this.isLoggedIn = state.isLoggedIn;
+      if (this.isLoggedIn) {
+        const user = this.authService.getUser();
+        if (user) {
+          this.userId = user.id;
+        }
+      }
+    });
   }
 
   loadProducts(): void {
@@ -71,7 +92,6 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // Extract all unique product types
   extractAvailableTypes(): void {
     const types = new Set<string>();
     this.products.forEach(product => {
@@ -82,31 +102,25 @@ export class ProductsComponent implements OnInit {
     this.availableTypes = Array.from(types);
   }
 
-  // Apply all filters
   applyFilters(): void {
     const selectedSizes = this.sizes
       .filter(size => size.checked)
       .map(size => size.value);
 
-    // Convert price from USD to MAD for filtering (since your data is in MAD)
     const minPriceMAD = this.minPrice * 10;
     const maxPriceMAD = this.maxPrice * 10;
 
     this.filteredProducts = this.products.filter(product => {
-      // Filter by price
       const priceMatch = product.price >= minPriceMAD && product.price <= maxPriceMAD;
 
-      // Filter by size
       const sizeMatch = selectedSizes.length === 0 || selectedSizes.includes(product.size);
 
-      // Filter by type
       const typeMatch = this.selectedType === 'all' || product.type === this.selectedType;
 
       return priceMatch && sizeMatch && typeMatch;
     });
   }
 
-  // Toggle size filter
   toggleSize(size: Size): void {
     const index = this.sizes.findIndex(s => s.value === size);
     if (index !== -1) {
@@ -114,7 +128,6 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  // Clear all filters
   clearAllFilters(): void {
     this.sizes.forEach(size => size.checked = false);
     this.minPrice = 25;
@@ -130,17 +143,65 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  // Convert price from MAD to display format
   formatPrice(price: number): string {
     return `$${(price / 10).toFixed(2)}`;
   }
 
-  addToCart(product: Product): void {
-    console.log('Added to cart:', product);
+  isSoldOut(product: Product): boolean {
+    return product.quantity <= 0;
   }
 
-  quickView(product: Product): void {
-    console.log('Quick view:', product);
+  addToCart(product: Product): void {
+    if (!this.isLoggedIn || !this.userId) {
+      Swal.fire({
+        title: 'Authentication Required',
+        text: 'You must be logged in to add items to cart',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#c1121f'
+      });
+      return;
+    }
+
+    if (product.quantity < 1) {
+      Swal.fire({
+        title: 'Out of Stock',
+        text: 'This product is currently sold out',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#c1121f'
+      });
+      return;
+    }
+
+    this.cartService.addProductToCart(this.userId, product.id!, 1).subscribe({
+      next: (cart) => {
+        Swal.fire({
+          title: 'Success!',
+          text: `${product.name} added to your cart!`,
+          icon: 'success',
+          confirmButtonText: 'Continue Shopping',
+          confirmButtonColor: '#c1121f',
+          showCancelButton: true,
+          cancelButtonText: 'View Cart',
+          cancelButtonColor: '#333'
+        }).then((result) => {
+          if (!result.isConfirmed) {
+            this.router.navigate(['/cart']);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error adding to cart:', err);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not add item to cart. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#c1121f'
+        });
+      }
+    });
   }
 
   toggleFavorite(product: Product): void {
@@ -148,10 +209,10 @@ export class ProductsComponent implements OnInit {
   }
 
   getImageUrl(cover: string | undefined): string {
-    if (cover) {
-      return `http://localhost:8089${cover}`;
-    } else {
-      return 'https://cdn-icons-png.flaticon.com/256/5281/5281744.png';
-    }
+    return `http://localhost:8089${cover}`;
+  }
+
+  quickView(product: Product): void {
+    this.router.navigate(['/product-details', product.id]);
   }
 }

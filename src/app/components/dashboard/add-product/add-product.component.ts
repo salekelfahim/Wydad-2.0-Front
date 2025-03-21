@@ -20,6 +20,7 @@ export class AddProductComponent implements OnInit {
   previewUrl: string | ArrayBuffer | null = null;
   isSubmitting = false;
   sizes = Object.values(Size);
+  showPreview = false;
 
   constructor(
     private fb: FormBuilder,
@@ -45,24 +46,16 @@ export class AddProductComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
+        this.showPreview = true;
       };
       reader.readAsDataURL(file);
-
-      const previewContainer = document.querySelector('.hidden');
-      if (previewContainer) {
-        previewContainer.classList.remove('hidden');
-      }
     }
   }
 
   clearFileSelection(): void {
     this.selectedFile = null;
     this.previewUrl = null;
-
-    const previewContainer = document.querySelector('[class*="mt-4 animate-fadeIn"]:not(.hidden)');
-    if (previewContainer) {
-      previewContainer.classList.add('hidden');
-    }
+    this.showPreview = false;
   }
 
   onSubmit(): void {
@@ -100,7 +93,7 @@ export class AddProductComponent implements OnInit {
         });
 
         setTimeout(() => {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/products-list']);
         }, 3000);
       },
       error: (error) => {
@@ -117,6 +110,6 @@ export class AddProductComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products-list']);
   }
 }

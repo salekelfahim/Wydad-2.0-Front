@@ -50,7 +50,19 @@ export class AddTicketsComponent implements OnInit {
   loadGames(): void {
     this.gameService.getAllGames().subscribe({
       next: (data) => {
-        this.games = data;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        this.games = data
+          .filter(game => {
+            const gameDate = new Date(game.date);
+            return gameDate >= today;
+          })
+          .sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA.getTime() - dateB.getTime();
+          });
       },
       error: (error) => {
         console.error('Error loading games:', error);

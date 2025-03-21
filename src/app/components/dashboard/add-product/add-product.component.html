@@ -67,7 +67,9 @@
 
         <div class="col-span-1 md:col-span-2 animate-fadeIn" style="animation-delay:0.6s">
           <label class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-[#c1121f] transition-colors duration-200">
+
+          <!-- Upload area - Show when no image is selected -->
+          <div *ngIf="!showPreview" class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-[#c1121f] transition-colors duration-200">
             <div class="flex flex-col items-center justify-center">
               <span class="material-symbols-outlined text-5xl text-gray-400 mb-3">cloud_upload</span>
               <p class="text-sm text-gray-500 mb-2">Drag and drop your image here or click to browse</p>
@@ -75,55 +77,31 @@
               <label class="inline-flex items-center px-4 py-2 bg-[#c1121f] text-white rounded-lg hover:bg-[#780000] transition-colors cursor-pointer shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200">
                 <span class="material-symbols-outlined mr-2">file_upload</span>
                 <span>Choose File</span>
-                <input type="file" accept="image/jpeg,image/png,image/gif" class="hidden" (change)="onFileSelected($event)" />
+                <input type="file" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden" (change)="onFileSelected($event)" />
               </label>
             </div>
           </div>
 
-          <div class="hidden mt-4 animate-fadeIn">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Preview</label>
-            <div class="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
+          <!-- Preview area - Show when image is selected -->
+          <div *ngIf="showPreview" class="mt-4 animate-fadeIn">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-sm font-medium text-gray-700">Preview</label>
+              <span *ngIf="selectedFile" class="text-xs text-green-600">
+                {{ selectedFile.name }} ({{ (selectedFile.size / 1024).toFixed(1) }} KB)
+              </span>
+            </div>
+            <div class="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
               <img [src]="previewUrl" alt="Product Preview" class="w-full h-full object-contain" />
               <button type="button" (click)="clearFileSelection()" class="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors">
                 <span class="material-symbols-outlined">close</span>
               </button>
             </div>
-          </div>
-        </div>
-
-<!--        <div class="col-span-1 md:col-span-2 animate-fadeIn" style="animation-delay:0.7s">-->
-<!--          <label for="product-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>-->
-<!--          <textarea id="product-description" formControlName="description" rows="4" placeholder="Enter the product description"-->
-<!--                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c1121f]/50 focus:border-[#c1121f] transition-all duration-200"></textarea>-->
-<!--        </div>-->
-
-        <div class="col-span-1 md:col-span-2 animate-fadeIn" style="animation-delay:0.8s">
-          <label class="block text-sm font-medium text-gray-700 mb-3">Features</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" formGroupName="features">
-            <div class="flex items-center">
-              <input type="checkbox" id="feature-new" formControlName="newArrival"
-                     class="w-4 h-4 text-[#c1121f] border-gray-300 rounded focus:ring-[#c1121f]" />
-              <label for="feature-new" class="ml-2 text-sm text-gray-600">New Arrival</label>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" id="feature-sale" formControlName="onSale"
-                     class="w-4 h-4 text-[#c1121f] border-gray-300 rounded focus:ring-[#c1121f]" />
-              <label for="feature-sale" class="ml-2 text-sm text-gray-600">On Sale</label>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" id="feature-featured" formControlName="featured"
-                     class="w-4 h-4 text-[#c1121f] border-gray-300 rounded focus:ring-[#c1121f]" />
-              <label for="feature-featured" class="ml-2 text-sm text-gray-600">Featured</label>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" id="feature-limited" formControlName="limitedEdition"
-                     class="w-4 h-4 text-[#c1121f] border-gray-300 rounded focus:ring-[#c1121f]" />
-              <label for="feature-limited" class="ml-2 text-sm text-gray-600">Limited Edition</label>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" id="feature-official" formControlName="officialProduct"
-                     class="w-4 h-4 text-[#c1121f] border-gray-300 rounded focus:ring-[#c1121f]" />
-              <label for="feature-official" class="ml-2 text-sm text-gray-600">Official Product</label>
+            <div class="mt-2 flex justify-center">
+              <label class="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined mr-1 text-sm">refresh</span>
+                <span>Change Image</span>
+                <input type="file" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden" (change)="onFileSelected($event)" />
+              </label>
             </div>
           </div>
         </div>

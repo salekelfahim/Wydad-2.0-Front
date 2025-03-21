@@ -53,10 +53,9 @@ export class LandingComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
 
-    // Fetch players
     this.playerService.getAllPlayers().subscribe({
       next: (data) => {
-        this.players = data.slice(0, 6); // Get first 6 players
+        this.players = data.slice(0, 6);
         this.loading.players = false;
       },
       error: (err) => {
@@ -66,10 +65,9 @@ export class LandingComponent implements OnInit {
       }
     });
 
-    // Fetch products
     this.productService.getAllProducts().subscribe({
       next: (data) => {
-        this.products = data.slice(0, 4); // Get first 4 products
+        this.products = data.slice(0, 4);
         this.loading.products = false;
       },
       error: (err) => {
@@ -79,10 +77,13 @@ export class LandingComponent implements OnInit {
       }
     });
 
-    // Fetch games
     this.gameService.getAllGames().subscribe({
       next: (data) => {
-        this.games = data.slice(0, 3); // Get first 3 games
+        const currentDate = new Date();
+        this.games = data
+          .filter(game => new Date(game.date) > currentDate)
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          .slice(0, 3);
         this.loading.games = false;
       },
       error: (err) => {
@@ -93,10 +94,13 @@ export class LandingComponent implements OnInit {
     });
   }
 
-  // Helper method to format date from ISO string
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  formatCompetition(competition: string): string {
+    return competition.replace(/_/g, ' ');
   }
 
   getImageUrl(cover: string | undefined): string {

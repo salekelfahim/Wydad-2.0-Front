@@ -1,0 +1,71 @@
+
+
+<div class="bg-gray-200">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center text-sm">
+            <a [routerLink]="['/']" class="text-gray-600 hover:text-[#c1121f] transition-colors">Home</a>
+            <span class="mx-2 text-gray-500">/</span>
+            <a [routerLink]="['/news']" class="text-gray-600 hover:text-[#c1121f] transition-colors">News</a>
+            <span class="mx-2 text-gray-500">/</span>
+            <span class="text-[#c1121f] font-medium">{{ news?.title }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div *ngIf="loading" class="flex justify-center items-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c1121f]"></div>
+        </div>
+
+        <div *ngIf="!loading && !news" class="text-center py-20">
+            <h3 class="text-xl font-medium text-gray-600">News article not found</h3>
+            <button
+                    class="mt-6 px-6 py-2 bg-[#c1121f] text-white font-medium rounded-lg hover:bg-[#a00f1c] transition-colors"
+                    (click)="goBack()">
+                Back to News
+            </button>
+        </div>
+
+        <div *ngIf="!loading && news">
+            <div class="mb-6">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="bg-[#c1121f] px-3 py-1 text-white text-sm font-medium rounded-md">News</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">{{ news.title }}</h1>
+            </div>
+
+            <div class="rounded-xl overflow-hidden mb-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img [src]="getImageUrl(news.cover)" [alt]="news.title" class="w-full h-auto object-cover transform hover:scale-[1.01] transition-transform duration-500" />
+            </div>
+
+            <div class="prose max-w-none mb-10">
+                <p class="mb-6 leading-relaxed">{{ news.content }}</p>
+
+                <p class="mb-6 leading-relaxed"> A last-minute goal from El Moutaraji gave Wydad AC a crucial 2-1
+                    victory in their opening Champions League match against ES Tunis at Mohamed V Stadium. The dramatic win
+                    puts the Red Castle in a strong position in Group B as they begin their campaign to reclaim the
+                    continental title. </p>
+                <p class="mb-6 leading-relaxed"> Wydad started the match with intensity, dominating possession in the early
+                    stages. Their pressure paid off in the 23rd minute when Jabrane converted a penalty after Attiyat Allah
+                    was brought down in the box. The home side continued to create chances but couldn&#x27;t extend their lead
+                    before halftime. </p>
+                <p class="mb-6 leading-relaxed"> ES Tunis came back stronger in the second half and equalized in the 67th
+                    minute through a well-worked counter-attack finished by Ben Romdhane. The visitors appeared content with a
+                    draw as the match entered the final stages. </p>
+                <p class="mb-6 leading-relaxed"> Coach Regragui made some tactical substitutions, bringing on fresh legs
+                    that would prove decisive. In the 89th minute, substitute El Moutaraji received a brilliant through ball
+                    from El Kaabi and calmly slotted past the goalkeeper, sending the packed Mohamed V Stadium into raptures.
+                </p>
+            </div>
+
+            <div class="flex justify-center mb-10">
+                <button
+                        class="px-6 py-2 bg-[#c1121f] text-white font-medium rounded-lg hover:bg-[#a00f1c] transition-colors transform hover:scale-105 transition-transform duration-200"
+                        (click)="goBack()">
+                    Back to News
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

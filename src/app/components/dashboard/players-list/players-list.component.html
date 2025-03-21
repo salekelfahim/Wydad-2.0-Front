@@ -1,47 +1,217 @@
 <main id="webcrumbs" class="flex-1 overflow-y-auto bg-gray-100 p-4">
-  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-    <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead class="bg-gray-50">
-        <tr>
-          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Photo</th>
-          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Name</th>
-          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Position</th>
-          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Number</th>
-          <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-center text-gray-900 sm:px-6">Actions</th>
-        </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 bg-white">
-        <tr *ngFor="let player of players" class="hover:bg-gray-50 transition-colors">
-          <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
-            <img
-              [src]="getImageUrl(player.picture)"
-              [alt]="player.firstName"
-              class="h-10 w-10 rounded-full object-cover"
-              (error)="handleImageError($event, player)"
-            />
-          </td>
-          <td class="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:px-6">{{ player.firstName }} {{ player.lastName }}</td>
-          <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">{{ player.position }}</td>
-          <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
-            {{ player.number }}
-          </td>
-          <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">
-            <div class="flex items-center justify-center space-x-2">
-              <button class="text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
-                <span class="material-symbols-outlined">visibility</span>
-              </button>
-              <button class="text-gray-600 hover:text-gray-800 p-1 rounded-full hover:bg-gray-50 transition-colors" (click)="navigateToEdit(player.id!)">
-                <span class="material-symbols-outlined">edit</span>
-              </button>
-              <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-50 transition-colors" (click)="confirmDelete(player)">
-                <span class="material-symbols-outlined">delete</span>
-              </button>
+    <div class="bg-white rounded-lg shadow-sm mb-4">
+        <div class="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center">
+                <button style="background-color: #c1121f"
+                        class="bg-[#c1121f] text-white px-4 py-2 rounded-lg flex items-center hover:bg-[#780000] transition-colors shadow-sm"
+                        [routerLink]="['/add-player']">
+                    <span class="material-symbols-outlined mr-2">add</span>
+                    <span>Add Player</span>
+                </button>
             </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+            <div class="flex flex-1 max-w-md">
+                <div class="relative w-full">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+            <span class="material-symbols-outlined">search</span>
+          </span>
+                    <input
+                            type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#c1121f] focus:border-[#c1121f] block w-full pl-10 p-2.5"
+                            placeholder="Search players..."
+                            [ngModel]="searchTerm"
+                            (input)="onSearch($event)" />
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <details class="relative">
+                    <summary
+                            class="list-none flex items-center bg-white border rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <span class="material-symbols-outlined mr-2">filter_alt</span>
+                        <span>Filter</span>
+                    </summary>
+                    <div class="absolute right-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg p-4 z-50">
+                        <div class="mb-4">
+                            <h4 class="font-semibold mb-2">Position</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-[#c1121f] rounded"
+                                           [checked]="positionFilters.ATTACKER"
+                                           (change)="togglePositionFilter('ATTACKER')" />
+                                    <span>Forward</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-[#c1121f] rounded"
+                                           [checked]="positionFilters.MIDFIELDER"
+                                           (change)="togglePositionFilter('MIDFIELDER')" />
+                                    <span>Midfielder</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-[#c1121f] rounded"
+                                           [checked]="positionFilters.DEFENDER"
+                                           (change)="togglePositionFilter('DEFENDER')" />
+                                    <span>Defender</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-[#c1121f] rounded"
+                                           [checked]="positionFilters.GOALKEEPER"
+                                           (change)="togglePositionFilter('GOALKEEPER')" />
+                                    <span>Goalkeeper</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <button
+                                    class="bg-gray-200 text-gray-800 px-4 py-2 rounded text-sm hover:bg-gray-300 transition-colors"
+                                    (click)="clearFilters()">
+                                Clear All
+                            </button>
+                            <button style="background-color: #780000"
+                                    class="bg-[#c1121f] text-white px-4 py-2 rounded text-sm hover:bg-[#780000] transition-colors"
+                                    (click)="applyFilters()">
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                </details>
+                <details class="relative">
+                    <summary
+                            class="list-none flex items-center bg-white border rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <span>Sort: {{ sortField | titlecase }}</span>
+                        <span class="material-symbols-outlined ml-2">{{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</span>
+                    </summary>
+                    <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-xl rounded-lg py-2 z-50">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors" (click)="changeSortField('name'); $event.preventDefault()">Name</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors" (click)="changeSortField('position'); $event.preventDefault()">Position</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors" (click)="changeSortField('age'); $event.preventDefault()">Age</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors" (click)="changeSortField('number'); $event.preventDefault()">Number</a>
+                    </div>
+                </details>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Photo</th>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Name</th>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Position</th>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-left text-gray-900 sm:px-6">Number</th>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-semibold text-center text-gray-900 sm:px-6">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                <tr *ngFor="let player of displayedPlayers" class="hover:bg-gray-50 transition-colors">
+                    <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
+                        <img
+                                [src]="getImageUrl(player.picture)"
+                                [alt]="player.firstName"
+                                class="h-10 w-10 rounded-full object-cover"
+                                (error)="handleImageError($event, player)"
+                        />
+                    </td>
+                    <td class="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:px-6">{{ player.firstName }} {{ player.lastName }}</td>
+                    <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">
+                        <span [class]="getPositionClass(player.position)">{{ player.position }}</span>
+                    </td>
+                    <td class="whitespace-nowrap py-4 px-4 text-sm sm:px-6">
+                        {{ player.number }}
+                    </td>
+                    <td class="whitespace-nowrap py-4 px-4 text-sm text-gray-500 sm:px-6">
+                        <div class="flex items-center justify-center space-x-2">
+
+                            <button class="text-gray-600 hover:text-gray-800 p-1 rounded-full hover:bg-gray-50 transition-colors" (click)="navigateToEdit(player.id!)">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-50 transition-colors" (click)="confirmDelete(player)">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Empty state when no players match the search/filter -->
+                <tr *ngIf="displayedPlayers.length === 0">
+                    <td colspan="5" class="py-8 text-center text-gray-500">
+                        <div class="flex flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl mb-2">search_off</span>
+                            <p class="text-lg font-medium">No players found</p>
+                            <p class="text-sm">Try adjusting your search or filters</p>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 sm:px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <button
+                            [disabled]="currentPage === 1"
+                            (click)="goToPage(currentPage - 1)"
+                            [class.text-gray-300]="currentPage === 1"
+                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Previous
+                    </button>
+                    <button
+                            [disabled]="currentPage === totalPages"
+                            (click)="goToPage(currentPage + 1)"
+                            [class.text-gray-300]="currentPage === totalPages"
+                            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Next
+                    </button>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Showing
+                            <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
+                            to
+                            <span class="font-medium">{{
+                                    Math.min(currentPage * itemsPerPage, filteredPlayers.length)
+                                }}</span>
+                            of
+                            <span class="font-medium">{{ filteredPlayers.length }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <button
+                                    [disabled]="currentPage === 1"
+                                    (click)="goToPage(currentPage - 1)"
+                                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                                    [class.text-gray-300]="currentPage === 1"
+                                    [class.cursor-not-allowed]="currentPage === 1">
+                                <span class="sr-only">Previous</span>
+                                <span class="material-symbols-outlined">chevron_left</span>
+                            </button>
+                            <!-- Page numbers -->
+                            <ng-container *ngFor="let page of getPaginationRange()">
+                                <button
+                                        (click)="goToPage(page)"
+                                        [class]="page === currentPage ?
+                    'z-10 bg-[#c1121f] border-[#c1121f] text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium' :
+                    'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'"
+                                        aria-current="page">
+                                    {{ page }}
+                                </button>
+                            </ng-container>
+                            <button
+                                    [disabled]="currentPage === totalPages"
+                                    (click)="goToPage(currentPage + 1)"
+                                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                                    [class.text-gray-300]="currentPage === totalPages"
+                                    [class.cursor-not-allowed]="currentPage === totalPages">
+                                <span class="sr-only">Next</span>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>

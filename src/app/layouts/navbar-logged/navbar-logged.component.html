@@ -8,10 +8,10 @@
         routerLink="/" />
     </div>
     <div class="hidden md:flex items-center space-x-8">
-      <a routerLink="/players" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">Players</a>
-      <a routerLink="/products" class="text-[#c1121f] font-medium transition-all duration-300 border-b-2 border-[#c1121f] pb-1">Products</a>
-      <a routerLink="/games" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">Games</a>
-      <a routerLink="/news" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">News</a>
+      <a routerLink="/players" [class.text-[#c1121f]]="isActive('/players')" [class.font-medium]="isActive('/players')" [class.border-[#c1121f]]="isActive('/players')" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">Players</a>
+      <a routerLink="/products" [class.text-[#c1121f]]="isActive('/products')" [class.font-medium]="isActive('/products')" [class.border-[#c1121f]]="isActive('/products')" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">Products</a>
+      <a routerLink="/games" [class.text-[#c1121f]]="isActive('/games')" [class.font-medium]="isActive('/games')" [class.border-[#c1121f]]="isActive('/games')" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">Games</a>
+      <a routerLink="/news" [class.text-[#c1121f]]="isActive('/news')" [class.font-medium]="isActive('/news')" [class.border-[#c1121f]]="isActive('/news')" class="hover:text-[#c1121f] transition-all duration-300 border-b-2 border-transparent hover:border-[#c1121f] pb-1">News</a>
       <details class="relative">
         <summary class="list-none cursor-pointer flex items-center justify-center">
           <span class="material-symbols-outlined bg-[#c1121f] text-white p-2 rounded-full hover:bg-[#780000] transition-all duration-300 transform hover:scale-105 shadow-md">
@@ -19,10 +19,8 @@
           </span>
         </summary>
         <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-xl rounded-lg py-2 z-50">
-          <a routerLink="/account" class="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors">
-            <span class="material-symbols-outlined mr-2 text-gray-600">account_circle</span> My Account
-          </a>
-          <a routerLink="/cart" class="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors">
+
+          <a routerLink="/cart" (click)="closeDropdown($event)" class="flex items-center px-4 py-2 hover:bg-gray-100 transition-colors">
             <span class="material-symbols-outlined mr-2 text-gray-600">shopping_cart</span> My Cart
           </a>
           <div class="border-t border-gray-200 my-1"></div>
@@ -37,15 +35,16 @@
         <span class="material-symbols-outlined cursor-pointer hover:text-[#c1121f] transition-colors">menu</span>
       </summary>
       <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
-        <a routerLink="/players" class="block px-4 py-2 hover:bg-[#f8f9fa]">Players</a>
-        <a routerLink="/products" class="block px-4 py-2 hover:bg-[#f8f9fa] text-[#c1121f] font-medium">Products</a>
-        <a routerLink="/games" class="block px-4 py-2 hover:bg-[#f8f9fa]">Games</a>
-        <a routerLink="/news" class="block px-4 py-2 hover:bg-[#f8f9fa]">News</a>
+        <a routerLink="/players" [class.text-[#c1121f]]="isActive('/players')" [class.font-medium]="isActive('/players')" class="block px-4 py-2 hover:bg-[#f8f9fa]">Players</a>
+        <a routerLink="/products" [class.text-[#c1121f]]="isActive('/products')" [class.font-medium]="isActive('/products')" class="block px-4 py-2 hover:bg-[#f8f9fa]">Products</a>
+        <a routerLink="/games" [class.text-[#c1121f]]="isActive('/games')" [class.font-medium]="isActive('/games')" class="block px-4 py-2 hover:bg-[#f8f9fa]">Games</a>
+        <a routerLink="/news" [class.text-[#c1121f]]="isActive('/news')" [class.font-medium]="isActive('/news')" class="block px-4 py-2 hover:bg-[#f8f9fa]">News</a>
         <div class="border-t border-gray-200 my-1"></div>
-        <a routerLink="/account" class="block px-4 py-2 hover:bg-[#f8f9fa]">My Account</a>
-        <a routerLink="/cart" class="block px-4 py-2 hover:bg-[#f8f9fa]">My Cart</a>
+
+        <a routerLink="/cart" (click)="closeDropdown($event)" class="block px-4 py-2 hover:bg-[#f8f9fa]">My Cart</a>
         <a (click)="logout()" class="block px-4 py-2 hover:bg-[#f8f9fa] text-[#c1121f] cursor-pointer">Logout</a>
       </div>
     </details>
   </div>
 </nav>
+

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NewsService} from '../../../services/news.service';
-import {News} from '../../../interfaces/news';
+import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../../../services/news.service';
+import { News } from '../../../interfaces/news';
 import Swal from 'sweetalert2';
-import {NgForOf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import { NgForOf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-news-list',
@@ -42,6 +42,12 @@ export class NewsListComponent implements OnInit {
     } else {
       return 'https://cdn-icons-png.flaticon.com/256/5281/5281744.png';
     }
+  }
+
+  getContentSnippet(content: string): string {
+    const words = content.split(' ');
+    const snippet = words.slice(0, 10).join(' '); // Get the first 10 words
+    return snippet + (words.length > 10 ? '...' : ''); // Add ellipsis if content is longer
   }
 
   deleteNews(id: number): void {
