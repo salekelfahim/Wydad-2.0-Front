@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
-import {Router, RouterLink} from '@angular/router';
-import { CartDTO} from '../../interfaces/cart';
+import { Router, RouterLink } from '@angular/router';
+import { CartDTO } from '../../interfaces/cart';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {CartItem} from "../../interfaces/cart-item";
-import {ProductService} from "../../services/product.service";
-import {TicketService} from "../../services/ticket.service";
+import { CartItem } from "../../interfaces/cart-item";
+import { ProductService } from "../../services/product.service";
+import { TicketService } from "../../services/ticket.service";
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -24,6 +24,7 @@ export class CartComponent implements OnInit {
   userId: number | null = null;
   successMessage: string = '';
   errorMessage: string = '';
+  updatingItems: { [itemId: string]: boolean } = {}; // Track items being updated
 
   constructor(
     private cartService: CartService,
@@ -31,7 +32,8 @@ export class CartComponent implements OnInit {
     private ticketService: TicketService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const user = this.authService.getUser();
@@ -120,28 +122,6 @@ export class CartComponent implements OnInit {
     return (item.product?.price || 0) * item.quantity;
   }
 
-  updateQuantity(item: CartItem): void {
-    if (!this.userId || !item.id) return;
-
-    this.resetMessages();
-    this.isProcessingAction = true; // Set action processing flag
-
-    this.cartService.updateCartItem(this.userId, item.id, { quantity: item.quantity }).subscribe({
-      next: (cart) => {
-        const updatedItems = this.mergeCartItems(cart.items);
-        cart.items = updatedItems;
-        this.cart = cart;
-        this.successMessage = 'Cart updated successfully';
-        this.isProcessingAction = false;
-      },
-      error: (err) => {
-        console.error('Error updating cart:', err);
-        this.errorMessage = 'Could not update cart. Please try again.';
-        this.isProcessingAction = false;
-      },
-    });
-  }
-
   mergeCartItems(newItems: CartItem[]): CartItem[] {
     if (!this.cart) return newItems;
 
@@ -220,7 +200,7 @@ export class CartComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.cart = { items: [], totalPrice: 0 };
+          this.cart = {items: [], totalPrice: 0};
           this.successMessage = 'Cart cleared successfully';
         },
         error: (err) => {
@@ -252,7 +232,7 @@ export class CartComponent implements OnInit {
             shipping: 20
           }));
 
-          this.cart = { items: [], totalPrice: 0 };
+          this.cart = {items: [], totalPrice: 0};
           this.successMessage = 'Order placed successfully!';
           setTimeout(() => {
             this.router.navigate(['/order']);
@@ -276,7 +256,7 @@ export class CartComponent implements OnInit {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    return date.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
   }
 
   calculateProductsSubtotal(): number {
@@ -300,5 +280,66 @@ export class CartComponent implements OnInit {
   get hasNoTickets(): boolean {
     if (!this.cart || this.isLoading) return false;
     return this.cart.items.filter(item => item.ticket).length === 0;
+  }
+
+  incrementQuantity(item: CartItem): void {
+    if (item.quantity < 10) {
+      item.quantity += 1;
+      this.updateQuantity(item);
+    }
+  }
+
+  decrementQuantity(item: CartItem): void {
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+      this.updateQuantity(item);
+    }
+  }
+
+  updateQuantity(item: CartItem): void {
+    if (!this.userId || !item.id) return;
+
+    this.resetMessages();
+    this.isProcessingAction = true;
+
+    const itemKey = `item_${item.id}`;
+    this.updatingItems[itemKey] = true;
+
+    this.cartService.updateCartItem(this.userId, item.id, {quantity: item.quantity})
+      .pipe(
+      finalize(() => {
+        setTimeout(() => {
+          this.updatingItems[itemKey] = false;
+          this.isProcessingAction = false;
+        }, 300);
+      })
+    )
+      .subscribe({
+        next: (cart) => {
+          const updatedItems = this.mergeCartItems(cart.items);
+          if (this.cart) {
+            this.cart.items = updatedItems;
+            this.cart.totalPrice = cart.totalPrice;
+          } else {
+            this.cart = cart;
+          }
+
+          this.successMessage = 'Cart updated';
+          setTimeout(() => {
+            if (this.successMessage === 'Cart updated') {
+              this.successMessage = '';
+            }
+          }, 5000);
+        },
+        error: (err) => {
+          console.error('Error updating cart:', err);
+          this.errorMessage = 'Could not update cart. Please try again.';
+        },
+      });
+  }
+
+  isItemUpdating(itemId: number | undefined): boolean {
+    if (!itemId) return false;
+    return this.updatingItems[`item_${itemId}`] || false;
   }
 }
