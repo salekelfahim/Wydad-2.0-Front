@@ -4,25 +4,26 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { LoginComponent } from './components/auth/login/login.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { PlayersComponent } from "./components/players/players.component";
+import { NewsComponent } from "./components/news/news.component";
+import { NewsDetailsComponent } from "./components/news-details/news-details.component";
+import { CartComponent } from "./components/cart/cart.component";
+import { GamesComponent } from "./components/games/games.component";
+import { OrderSuccessComponent } from "./components/order-success/order-success.component";
+import { DashboardComponent } from "./components/dashboard/dashboard/dashboard.component";
 import { AddPlayerComponent } from './components/dashboard/add-player/add-player.component';
-import { adminGuard } from './guards/admin.guard';
 import { PlayersListComponent } from "./components/dashboard/players-list/players-list.component";
 import { EditPlayerComponent } from "./components/dashboard/edit-player/edit-player.component";
 import { AddGameComponent } from "./components/dashboard/add-game/add-game.component";
+import { GamesListComponent } from "./components/dashboard/games-list/games-list.component";
 import { AddTicketsComponent } from "./components/dashboard/add-tickets/add-tickets.component";
 import { TicketsListComponent } from "./components/dashboard/tickets-list/tickets-list.component";
-import { DashboardComponent } from "./components/dashboard/dashboard/dashboard.component";
 import { AddProductComponent } from "./components/dashboard/add-product/add-product.component";
 import { ProductsListComponent } from "./components/dashboard/products-list/products-list.component";
-import { GamesListComponent } from "./components/dashboard/games-list/games-list.component";
-import { NewsListComponent } from "./components/dashboard/news-list/news-list.component";
 import { AddNewsComponent } from "./components/dashboard/add-news/add-news.component";
-import {PlayersComponent} from "./components/players/players.component";
-import {NewsComponent} from "./components/news/news.component";
-import {NewsDetailsComponent} from "./components/news-details/news-details.component";
-import {CartComponent} from "./components/cart/cart.component";
-import {GamesComponent} from "./components/games/games.component";
-import {OrderSuccessComponent} from "./components/order-success/order-success.component";
+import { NewsListComponent } from "./components/dashboard/news-list/news-list.component";
+import { adminGuard } from './guards/admin.guard';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,7 @@ export const routes: Routes = [
     component: LoginComponent,
     title: 'WAC - Login',
   },
+
   {
     path: 'products',
     component: ProductsComponent,
@@ -66,20 +68,26 @@ export const routes: Routes = [
     title: 'WAC - News Details',
   },
   {
-    path: 'cart',
-    component: CartComponent,
-    title: 'WAC - Cart',
-  },
-  {
     path: 'games',
     component: GamesComponent,
     title: 'WAC - Games',
+  },
+
+  // Supporter
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'WAC - Cart',
+    canActivate: [authGuard],
   },
   {
     path: 'order',
     component: OrderSuccessComponent,
     title: 'WAC - Order',
+    canActivate: [authGuard],
   },
+
+  // Admin
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -152,6 +160,8 @@ export const routes: Routes = [
     title: 'WAC - News List',
     canActivate: [adminGuard],
   },
+
+  // Anything Else
   {
     path: '**',
     redirectTo: '',

@@ -233,21 +233,27 @@ export class GamesComponent implements OnInit {
     this.applyFilters();
   }
 
-  // Modal methods
   openTicketModal(game: Game): void {
-    // Check if user is logged in first
     if (!this.isLoggedIn || !this.userId) {
       Swal.fire({
         title: 'Authentication Required',
         text: 'You must be logged in to purchase tickets',
         icon: 'warning',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#c1121f'
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Register',
+        confirmButtonColor: '#c1121f',
+        cancelButtonColor: '#333'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/register']);
+        }
       });
       return;
     }
 
-    // Only open the modal if tickets are available
     if (game.tickets && game.tickets.length > 0 &&
       this.getAvailabilityStatus(game).text !== 'Sold Out') {
       this.selectedGame = game;
@@ -266,7 +272,6 @@ export class GamesComponent implements OnInit {
 
   selectTicket(ticket: Ticket): void {
     this.selectedTicket = ticket;
-    // Reset quantity to 1 when changing tickets
     this.ticketQuantity = 1;
   }
 
@@ -285,14 +290,12 @@ export class GamesComponent implements OnInit {
   }
 
   validateQuantity(): void {
-    // Ensure quantity is a number, between 1 and 3, and less than available tickets
     if (isNaN(this.ticketQuantity) || this.ticketQuantity < 1) {
       this.ticketQuantity = 1;
     } else if (this.ticketQuantity > 3) {
       this.ticketQuantity = 3;
     }
 
-    // Make sure quantity doesn't exceed available tickets
     if (this.selectedTicket && this.ticketQuantity > this.selectedTicket.quantity) {
       this.ticketQuantity = this.selectedTicket.quantity;
     }
@@ -313,8 +316,17 @@ export class GamesComponent implements OnInit {
         title: 'Authentication Required',
         text: 'You must be logged in to purchase tickets',
         icon: 'warning',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#c1121f'
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Register',
+        confirmButtonColor: '#c1121f',
+        cancelButtonColor: '#333'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/register']);
+        }
       });
       return;
     }
@@ -323,7 +335,6 @@ export class GamesComponent implements OnInit {
       next: (updatedCart) => {
         this.closeModal();
 
-        // Show success message with SweetAlert
         Swal.fire({
           title: 'Success!',
           text: `${this.ticketQuantity} ticket(s) added to your cart!`,
@@ -342,7 +353,6 @@ export class GamesComponent implements OnInit {
       error: (err) => {
         console.error('Error adding to cart:', err);
 
-        // Show error message with SweetAlert
         Swal.fire({
           title: 'Error',
           text: 'Could not add tickets to cart. Please try again.',

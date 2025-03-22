@@ -6,6 +6,7 @@ import { Product } from '../../interfaces/product';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-product-details',
@@ -86,8 +87,23 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(): void {
     this.resetMessages();
 
-    if (!this.isLoggedIn || !this.userId || !this.product) {
-      this.errorMessage = 'You must be logged in to add items to cart';
+    if (!this.isLoggedIn || !this.userId) {
+      Swal.fire({
+        title: 'Authentication Required',
+        text: 'You must be logged in to add items to the cart',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Register',
+        confirmButtonColor: '#c1121f',
+        cancelButtonColor: '#333'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/register']);
+        }
+      });
       return;
     }
 
@@ -96,20 +112,22 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
 
-    if (this.product.quantity < this.quantity) {
+    if (this.product && this.product.quantity < this.quantity) {
       this.errorMessage = 'Not enough stock available';
       return;
     }
 
-    this.cartService.addProductToCart(this.userId, this.product.id!, this.quantity).subscribe({
-      next: (cart) => {
-        this.successMessage = `${this.product!.name} added to your cart!`;
-      },
-      error: (err) => {
-        console.error('Error adding to cart:', err);
-        this.errorMessage = 'Could not add item to cart. Please try again.';
-      },
-    });
+    if (this.product && this.userId) {
+      this.cartService.addProductToCart(this.userId, this.product.id!, this.quantity).subscribe({
+        next: (cart) => {
+          this.successMessage = `${this.product!.name} added to your cart!`;
+        },
+        error: (err) => {
+          console.error('Error adding to cart:', err);
+          this.errorMessage = 'Could not add item to cart. Please try again.';
+        },
+      });
+    }
   }
 
   resetMessages(): void {

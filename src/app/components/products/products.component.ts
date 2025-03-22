@@ -155,10 +155,19 @@ export class ProductsComponent implements OnInit {
     if (!this.isLoggedIn || !this.userId) {
       Swal.fire({
         title: 'Authentication Required',
-        text: 'You must be logged in to add items to cart',
+        text: 'You must be logged in to add items to the cart',
         icon: 'warning',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#c1121f'
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Register',
+        confirmButtonColor: '#c1121f',
+        cancelButtonColor: '#333'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.router.navigate(['/register']);
+        }
       });
       return;
     }
