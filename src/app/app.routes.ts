@@ -22,6 +22,7 @@ import {NewsComponent} from "./components/news/news.component";
 import {NewsDetailsComponent} from "./components/news-details/news-details.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {GamesComponent} from "./components/games/games.component";
+import {OrderSuccessComponent} from "./components/order-success/order-success.component";
 
 export const routes: Routes = [
   {
@@ -73,6 +74,11 @@ export const routes: Routes = [
     path: 'games',
     component: GamesComponent,
     title: 'WAC - Games',
+  },
+  {
+    path: 'order',
+    component: OrderSuccessComponent,
+    title: 'WAC - Order',
   },
   {
     path: 'dashboard',

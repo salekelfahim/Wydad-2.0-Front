@@ -64,14 +64,12 @@ export class CartComponent implements OnInit {
     });
   }
 
-  // Load product and ticket details without setting isLoading flags
   loadCartItemDetails(): void {
     if (!this.cart) {
       this.isLoading = false;
       return;
     }
 
-    // Track the number of pending API calls
     let pendingRequests = 0;
 
     this.cart.items.forEach((item) => {
@@ -112,7 +110,6 @@ export class CartComponent implements OnInit {
       }
     });
 
-    // If there are no items or no requests were made, finish loading
     if (this.cart.items.length === 0 || pendingRequests === 0) {
       this.isLoading = false;
       this.isProcessingAction = false;
@@ -131,7 +128,6 @@ export class CartComponent implements OnInit {
 
     this.cartService.updateCartItem(this.userId, item.id, { quantity: item.quantity }).subscribe({
       next: (cart) => {
-        // Keep reference to existing products/tickets
         const updatedItems = this.mergeCartItems(cart.items);
         cart.items = updatedItems;
         this.cart = cart;
@@ -146,15 +142,12 @@ export class CartComponent implements OnInit {
     });
   }
 
-  // Helper method to merge existing product/ticket data with updated cart items
   mergeCartItems(newItems: CartItem[]): CartItem[] {
     if (!this.cart) return newItems;
 
     return newItems.map(newItem => {
-      // Find corresponding item in current cart if it exists
       const existingItem = this.cart!.items.find(item => item.id === newItem.id);
       if (existingItem) {
-        // Preserve the product/ticket data from existing item
         newItem.product = existingItem.product;
         newItem.ticket = existingItem.ticket;
       }
@@ -176,13 +169,11 @@ export class CartComponent implements OnInit {
     if (!this.userId || !item.id) return;
 
     this.resetMessages();
-    this.isProcessingAction = true; // Flag to show operation in progress
+    this.isProcessingAction = true;
 
-    // Optimistically remove the item from UI first for smoother experience
     if (this.cart) {
       const itemIndex = this.cart.items.findIndex(i => i.id === item.id);
       if (itemIndex !== -1) {
-        // Create a new array without the item (immutable update)
         const updatedItems = [
           ...this.cart.items.slice(0, itemIndex),
           ...this.cart.items.slice(itemIndex + 1)
@@ -202,7 +193,6 @@ export class CartComponent implements OnInit {
       )
       .subscribe({
         next: (cart) => {
-          // Update the cart with merged data to preserve product/ticket info
           const updatedItems = this.mergeCartItems(cart.items);
           cart.items = updatedItems;
           this.cart = cart;
@@ -211,7 +201,6 @@ export class CartComponent implements OnInit {
         error: (err) => {
           console.error('Error removing item:', err);
           this.errorMessage = 'Could not remove item. Please try again.';
-          // If there was an error, reload the cart to revert the optimistic update
           this.loadCart();
         }
       });
@@ -254,12 +243,20 @@ export class CartComponent implements OnInit {
         })
       )
       .subscribe({
-        next: () => {
+        next: (orderNumber: string) => {
+          localStorage.setItem('lastOrder', JSON.stringify({
+            orderNumber: orderNumber || `WAC-${new Date().getTime()}`,
+            items: this.cart?.items || [],
+            total: this.calculateTotal(),
+            date: new Date().toISOString(),
+            shipping: 20
+          }));
+
           this.cart = { items: [], totalPrice: 0 };
-          this.successMessage = 'Checkout completed successfully';
+          this.successMessage = 'Order placed successfully!';
           setTimeout(() => {
-            this.router.navigate(['/order-confirmation']);
-          }, 2000);
+            this.router.navigate(['/order']);
+          }, 1500);
         },
         error: (err) => {
           console.error('Error during checkout:', err);
